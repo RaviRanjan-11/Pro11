@@ -8,11 +8,32 @@
 import SwiftUI
 
 struct CustomTextField: View {
+    var placeholder: String
+    @Binding var text: String
+    var keyboardType: UIKeyboardType
+    var isSecure: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if isSecure {
+            SecureField(placeholder, text: $text)
+                .keyboardType(keyboardType)
+                .autocapitalization(.none)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+        } else {
+            TextField(placeholder, text: $text)
+                .keyboardType(keyboardType)
+                .autocapitalization(.none)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+        }
     }
-}
-
-#Preview {
-    CustomTextField()
 }

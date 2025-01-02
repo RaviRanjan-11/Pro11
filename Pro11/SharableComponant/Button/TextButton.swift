@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct TextButton: View {
+    
+    var title: String = "view more"
+    var callBack: () -> Void = { }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            
+
+            Button {
+                callBack()
+                
+            } label: {
+                HStack {
+                    Text(title)
+                        .foregroundColor(.white)
+                        .font(.subheadline)
+                    
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 5)
+                .background(
+                    RoundedRectangle(cornerRadius: 5, style: .circular)
+                        .fill(.gray)
+                )
+            }
+            
+            
+        }
     }
 }
 

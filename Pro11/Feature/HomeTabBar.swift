@@ -8,42 +8,63 @@
 import SwiftUI
 
 struct HomeTabBar: View {
+    
+    
+    
+    init() {
+        // Customize the tab bar appearance
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .white
+        
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = .red
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.red]
+        
+        tabBarAppearance.stackedLayoutAppearance.normal.iconColor = .gray
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.gray]
+        
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+    }
+    
     var body: some View {
         TabView {
-            Text("Home View")
+            Pro11Home()
+                .navigationBarBackButtonHidden(true)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
+            MyContest()
+                .navigationBarBackButtonHidden(true)
+                .tabItem {
+                    Image(systemName: "crown")
+                        .resizable()
+                    Text("My Contest")
+                }
 
-            // Reward Tab
-            Text("Reward View")
+
+            ReferAndEarnScreen(isPresentedFromTabBar: true)
+                .navigationBarBackButtonHidden(true)
                 .tabItem {
                     Image(systemName: "gift.fill")
                     Text("Reward")
                 }
 
             // Portfolio Tab
-            Text("Portfolio View")
+            BalanceScreen(isPresentedFromTabBar: true)
+                .navigationBarBackButtonHidden(true)
                 .tabItem {
                     Image(systemName: "briefcase.fill")
                     Text("Portfolio")
                 }
-
-            // Settings Tab
-            Text("Settings View")
-                .tabItem {
-                    Image(systemName: "gearshape.fill")
-                    Text("Settings")
-                }
             
-            Text("Profile")
+            ProfileScreen()
+                .navigationBarBackButtonHidden(true)
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
                 }
-
-    
         }
     }
 }

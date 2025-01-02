@@ -23,20 +23,23 @@ struct MatchCardView: View {
         VStack(alignment: .leading, spacing: 10) {
             
             if forUpcomingMatch {
-                HStack {
-                    Image("cricket")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text(seriesName ?? "")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.gray)
+                if(seriesName != nil){
+                    HStack {
+                        Image("cricket")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                         
-                    Spacer()
-                    ImageButton(image: ""){}
+                        Text(seriesName ?? "")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.gray)
+                        
+                        Spacer()
+                        ImageButton(image: ""){}
+                    }
+                    .padding(.horizontal, 5)
+                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.gray.opacity(0.1)))
                 }
-                .padding(.horizontal, 5)
-                .background(RoundedRectangle(cornerRadius: 4).fill(Color.gray.opacity(0.1)))
             }
             
             HStack {

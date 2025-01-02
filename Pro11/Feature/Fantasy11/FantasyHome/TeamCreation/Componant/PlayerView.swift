@@ -8,8 +8,52 @@
 import SwiftUI
 
 struct PlayerView: View {
+    
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Button{
+                    
+                } label: {
+                    Text("SELECTED BY")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                }
+                Spacer()
+                Button{
+                    
+                } label: {
+                    Text("POINTS")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.gray)
+                }
+                .padding(.leading, 50)
+                Spacer()
+                Button{
+                    
+                } label: {
+                    Text("CREDITS")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+            Divider()
+            ScrollView(showsIndicators: false){
+                
+                ForEach(0 ..< 5) { item in
+                    PlayerCard()
+                        
+                }
+            }
+        }
     }
 }
 

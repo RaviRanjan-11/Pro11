@@ -4,61 +4,71 @@
 //
 //  Created by Ravi Ranjan on 23/12/24.
 //
-
 import SwiftUI
 struct ContestsScreen: View {
-    @State private var discountedContests: [ContestData] = []
-    @State private var trendingContests: [ContestData] = []
-    @State private var naviagteToJoinContest: Bool = false
+    @State private var naviagteToJoinContestScreen: Bool = false
     @Environment(\.presentationMode) var presentationManager
+
+    @StateObject var viewmodel: ContestViewModel = ContestViewModel()
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Header Section
             ContestHeaderView() {
                 presentationManager.wrappedValue.dismiss()
             }
-            
-        
-            // Contest Section
+
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    // Discounted Entry Section
-                    ContestSectionView(title: "Discounted Entry", contests: discountedContests)
-                    
-                    // Trending Now Section
-                    ContestSectionView(title: "Trending Now", contests: trendingContests)
-                        
-                    
+                // Grouped Contests List
+                LazyVStack(spacing: 20) {
+                    if !viewmodel.sectionedContests.isEmpty {
+                        ForEach(viewmodel.sectionedContests.keys.sorted(), id: \.self) { contestType in
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(contestType)
+                                    .font(.headline)
+                                    .padding(.leading)
+                                
+                                ForEach(viewmodel.sectionedContests[contestType] ?? [], id: \.id) { contest in
+                                    NavigationLink(
+                                        destination: JoinContestScreen()
+                                            .navigationBarBackButtonHidden(true),
+                                        isActive: $naviagteToJoinContestScreen
+                                    ) {
+                                        createContestCardView(for: contest)
+                                            .onTapGesture {
+                                                naviagteToJoinContestScreen.toggle()
+                                            }
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }
+                    } else {
+                        Text("No upcoming matches.")
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
                 }
-                .padding(.horizontal)
-                
+                .padding()
             }
         }
         .background(Color(.systemBackground))
         .onAppear {
-            loadTempContests()
+            viewmodel.getContestBy()
         }
     }
-    
-    private func loadTempContests() {
-        
-        discountedContests = [
-            ContestData(title: "₹11 Crores", price: "₹49", discountedPrice: "₹1", spotsLeft: "29,96,036 Left", totalSpots: "30,33,645", firstPrize: "₹1 Cr", winnerPercentage: "62%"),
-            ContestData(title: "₹1 Crore", price: "₹39", discountedPrice: "₹1", spotsLeft: "3,44,937 Left", totalSpots: "3,46,500", firstPrize: "₹4.50L", winnerPercentage: "59%")
-        ]
-        
-        trendingContests = [
-            ContestData(title: "₹7 Lakhs", price: "₹149", discountedPrice: nil, spotsLeft: "6,227 Left", totalSpots: "6,263", firstPrize: "₹60,000", winnerPercentage: "65%"),
-            ContestData(title: "₹3 Lakhs", price: "₹999", discountedPrice: nil, spotsLeft: "All Spots Filled", totalSpots: nil, firstPrize: nil, winnerPercentage: nil),
-            
-            ContestData(title: "₹3 Lakhs", price: "₹999", discountedPrice: nil, spotsLeft: "All Spots Filled", totalSpots: nil, firstPrize: nil, winnerPercentage: nil)
 
-        ]
+    func createContestCardView(for contest: ContestModelData?) -> some View {
+        Group {
+            if let contest = contest {
+                ContestCardView(data: contest)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
+            } else {
+                NoMatchView()
+            }
+        }
     }
 }
-
-
-
 
 #Preview {
     ContestsScreen()

@@ -33,7 +33,7 @@ struct LeaderBoardCard: View {
             }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 2)
+            RoundedRectangle(cornerRadius: 5)
                 .fill(Color.gray.opacity(0.1))
         )
         

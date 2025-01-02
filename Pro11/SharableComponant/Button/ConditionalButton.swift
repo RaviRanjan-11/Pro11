@@ -1,5 +1,5 @@
 //
-//  CondtionalButton.swift
+//  ConditionalButton.swift
 //  Pro11
 //
 //  Created by Ravi Ranjan on 21/12/24.
@@ -7,16 +7,19 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ConditionalButton: View {
     var title: String
     var action: () -> Void
-    var isEnabled: Bool
+    var isEnabled: Bool  // Make this a parameter to control enabling state
     var backgroundColor: Color
+    var foregroundColor: Color = .white
     
     var body: some View {
         Button(action: action) {
             Text(title)
-                .foregroundColor(.white)
+                .foregroundColor(foregroundColor)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -29,7 +32,5 @@ struct ConditionalButton: View {
 }
 
 #Preview {
-    CondtionalButton(title: "Button", action: {}, isEnabled: true, backgroundColor: .red)
+    ConditionalButton(title: "Submit", action: {}, isEnabled: true, backgroundColor: .red)
 }
-
-

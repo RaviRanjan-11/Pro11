@@ -17,9 +17,9 @@ struct JoinContestNavigationBar: View {
                 Button(action: {
                     backButtonAction()
                 }) {
-                    Image(systemName: "chevron.backward")
+                    Image("left-arrow")
                         .resizable()
-                        .frame(width: 10, height: 16)
+                        .frame(width: 32, height: 32)
                         .font(.title)
                         .foregroundColor(.white)
                     

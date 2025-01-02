@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct TeamSelectionScreen: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        
+        VStack {
+            
+            Button(action: {
+//                action()
+            }) {
+                Image("left-arrow")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .font(.title)
+                    
+                
+
+            }
+            .padding(.trailing, 20)
+        }
+        
     }
 }
 

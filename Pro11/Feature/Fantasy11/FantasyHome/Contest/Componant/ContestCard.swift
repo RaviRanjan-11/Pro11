@@ -8,58 +8,62 @@
 import SwiftUI
 
 struct ContestCardView: View {
-    let data: ContestData
+    let data: ContestModelData
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "checkmark.seal.fill")
-                        .foregroundColor(.green)
-                    Text(data.title)
-                        .font(.headline)
-                    Spacer()
-                }
-                Text(data.spotsLeft)
-                    .font(.caption)
-                    .foregroundColor(.red)
-                
-                if let firstPrize = data.firstPrize {
+                HStack (alignment: .center){
                     HStack {
-                        Image(systemName: "crown.fill")
-                            .foregroundColor(.yellow)
-                        Text("1st Prize: \(firstPrize)")
-                            .font(.caption)
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(.green)
+                        Text(data.priceType ?? "")
+                            .font(.headline)
                         Spacer()
-                        Text("Winners: \(data.winnerPercentage ?? "--")")
-                            .font(.caption)
                     }
                 }
+                
+                
+                HStack {
+                    
+                    Text("₹ " + (data.prizePool?.toString ?? "") )
+                        .font(.headline)
+                    Spacer()
+                    Text("Join @ " + data.joiningPrice.toString)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.all, 5)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(.green)
+                            )
+                }
+               
+                GradientProgressBar(maxValue: data.totalSpot ?? 0, currentValue: data.filledSpot)
+                
+                
             }
             
             Spacer()
+
             
-            VStack {
-                if let discountedPrice = data.discountedPrice {
-                    Text(data.price)
-                        .strikethrough()
-                        .foregroundColor(.gray)
-                }
-                Text(data.discountedPrice ?? data.price)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(8)
-                    .background(Color.green)
-                    .clipShape(Capsule())
-            }
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1)
         )
+        
     }
 }
 #Preview{
-    ContestCardView(data: ContestData(title: "₹11 Crores", price: "₹49", discountedPrice: "₹1", spotsLeft: "29,96,036 Left", totalSpots: "30,33,645", firstPrize: "₹1 Cr", winnerPercentage: "62%"))
+    ContestCardView(data: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435))
+}
+
+
+extension Int {
+    var toString: String {
+       return "\(self)"
+    }
 }

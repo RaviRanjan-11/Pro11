@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct BalanceScreen: View {
-    @State private var availableFunds: Double = 500.0  // Example funds
+    @State private var availableFunds: Double = 500.0
     @State private var depositAmount: String = ""
     @State private var withdrawAmount: String = ""
     @Environment(\.presentationMode) var presentationMode
     var isPresentedFromTabBar: Bool = true
     
+    @State private var isEligibleToWithdraw: Bool = true
     
     var body: some View {
         VStack {
@@ -25,23 +26,41 @@ struct BalanceScreen: View {
                 NavigationBar(title: "Balance")
             }
             
-            
             ScrollView {
                 VStack(spacing: 20) {
-                    // Available Funds
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Available Funds")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Available Funds")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
+                            
+                            Text("\(availableFunds, specifier: "%.2f")")
+                                .font(.system(size: 32, weight: .semibold))
+                                .foregroundColor(.green)
+                            
+                        }
+                        Spacer()
+                        Button(action: {
+                            if let deposit = Double(depositAmount), deposit > 0 {
+                                availableFunds += deposit
+                                depositAmount = ""
+                            }
+                        }) {
+                            Text("Add Cash")
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(8)
+                        }
                         
-                        Text("$\(availableFunds, specifier: "%.2f")")
-                            .font(.system(size: 32, weight: .semibold))
-                            .foregroundColor(.green)
                         
-                        Divider()
-                            .padding(.vertical, 10)
+                       
                     }
+                    Divider()
+                        .padding(.vertical, 10)
+                    
                     
                     VStack(alignment: .leading, spacing: 10) {
                         HStack(spacing: 10) {
@@ -57,32 +76,17 @@ struct BalanceScreen: View {
                             
                             Spacer()
                             
-                            Button(action: {
-                                if let deposit = Double(depositAmount), deposit > 0 {
-                                    availableFunds += deposit
-                                    depositAmount = ""
-                                }
-                            }) {
-                                Text("Add Funds")
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
-                            }
+                            
                         }
                         .padding(.top, 20)
                         
                         
                     }
                     
-                    Divider()
-                        .padding(.vertical, 10)
-                    
                     // Winning Section
                     VStack(alignment: .leading, spacing: 10) {
                         HStack(spacing: 10) {
-                            Image("medal")  // Use your image here
+                            Image("medal")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
@@ -100,17 +104,24 @@ struct BalanceScreen: View {
                                     depositAmount = ""
                                 }
                             }) {
-                                Text("Withdraw Funds")
+                                Text(isEligibleToWithdraw ? "Withdraw" : "Verify to Withdraw")
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
                                     .padding()
-                                    .background(Color.red)
+                                    .background(isEligibleToWithdraw ? Color.green : Color.red)
                                     .cornerRadius(8)
+                                
                             }
+                            
                         }
                         .padding(.top, 20)
                         
                         
+                        Text("Verify your account to be eligible to withdraw")
+                            .fontWeight(.bold)
+                            .padding(.vertical)
+                            .foregroundColor(.red)
+                          
                     }
                     
                     Divider()

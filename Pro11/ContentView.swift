@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import IQKeyboardManagerSwift
 
 struct ContentView: View {
+    
+    init() {
+        IQKeyboardManager.shared.isEnabled = true
+    }
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            SplashScreen()
+                .navigationBarHidden(true)
         }
-        .padding()
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

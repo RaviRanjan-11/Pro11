@@ -6,20 +6,47 @@
 //
 
 import Foundation
- 
-class LoginRoute: NetworkRoute {
-    var headers: [String : String]?
-    
-    
-    var path: String = NetworkConstant.buildURL(for: .auth, authenticationEndpoint: .otp)
-    
-    var method: HTTPMethod = .post
 
-    var body: Encodable?
+/// A class representing the network route for the login feature.
+///
+/// This class conforms to the `NetworkRoute` protocol and is responsible for
+/// defining the endpoint, HTTP method, headers, and body for the OTP request during login.
+class LoginRoute: BaseRoute {
+    enum Endpoint {
+        case otp
 
-    func setBody(_ body: Encodable) {
-        self.body = body
+        // Generate the path dynamically based on the endpoint
+        var path: String {
+            switch self {
+            case .otp:
+                return NetworkConstant.buildURL(for: .auth, endpointPath: NetworkConstant.Endpoints.Authentication.otp.path)
+            }
+        }
+
+        // Set HTTP methods for different endpoints if required
+        var method: HTTPMethod {
+            switch self {
+            case .otp:
+                return .post
+            }
+        }
     }
-    
+
+    let endpoint: Endpoint
+
+    override var path: String {
+        endpoint.path
+    }
+
+    override var method: HTTPMethod {
+        endpoint.method
+    }
+
+    init(endpoint: Endpoint, headers: [String: String]? = nil, body: Codable? = nil) {
+        self.endpoint = endpoint
+        super.init(headers: headers, body: body)
+    }
 }
+
+
 

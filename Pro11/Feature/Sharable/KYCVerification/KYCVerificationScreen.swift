@@ -23,7 +23,6 @@ struct KYCVerificationScreen: View {
     
 
     var body: some View {
-        NavigationView {
             VStack {
                 NavigationBarBack(title: "KYC Verification") {
                     presentationMode.wrappedValue.dismiss()
@@ -89,9 +88,7 @@ struct KYCVerificationScreen: View {
                 .padding()
 
             }
-          
-        }
-        .navigationBarBackButtonHidden()
+            .navigationBarBackButtonHidden(true)
     }
 }
 

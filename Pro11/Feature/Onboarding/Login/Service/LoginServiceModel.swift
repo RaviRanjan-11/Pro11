@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+
+// MARK: - LoginResponse
+
+struct LoginRequest:Codable{
+    let emailTo: String
+}
+
+
+// MARK: - DataClass
+struct LoginData: Codable {
+    let token, data: String
+}

@@ -8,132 +8,110 @@
 import SwiftUI
 
 struct OTPScreen: View {
-    @State private var otp: String = ""
-    @State private var email: String = "example@email.com"
-    @State private var timerCount: Int = 45
-    @State private var isResendActive: Bool = false
+    
+    @StateObject private var viewModel: OTPScreenViewModel
     @Environment(\.presentationMode) var presentationManager
-    @State private var navigateToHomeScreen: Bool = false // State for navigation
-
+    
+    init(email: String, token: String) {
+           _viewModel = StateObject(wrappedValue: OTPScreenViewModel(email: email, token: token))
+    }
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                NavigationBar(title: "Verify OTP") //
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Enter the 6-digit OTP sent to")
-                        .font(.headline)
-                        .foregroundColor(.gray)
+            ZStack {
+                VStack(spacing: 20) {
+                    NavigationBar(title: "Verify OTP")
                     
-                    HStack {
-                        Text(email)
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                        
-                        Button {
-                            // Action to edit email
-                            presentationManager.wrappedValue.dismiss()
-                        } label: {
-                            Image(systemName: "pencil")
-                                .foregroundColor(.red)
-                                .padding(8)
-                                .background(Color.green.opacity(0.1))
-                                .clipShape(Circle())
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    TextField("Enter OTP", text: $otp)
-                        .keyboardType(.numberPad)
-                        .padding()
-                        .frame(height: 50)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                        )
-                    
-                    HStack {
-                        Button(action: {
-                            resetTimer()
-                        }) {
-                            Text("Resend OTP")
-                                .font(.subheadline)
-                                .foregroundColor(isResendActive ? .blue : .gray)
-                        }
-                        .disabled(!isResendActive)
-                        
-                        Spacer()
-                        
-                        Text(timerCount > 0 ? "Resend in \(timerCount)s" : "")
-                            .font(.subheadline)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Enter the 6-digit OTP sent to")
+                            .font(.headline)
                             .foregroundColor(.gray)
+                        
+                        HStack {
+                            Text(viewModel.email)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                            
+                            Button {
+                                // Action to edit email
+                                presentationManager.wrappedValue.dismiss()
+                            } label: {
+                                Image("pencil")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .padding(8)
+                                    .background(Color.green.opacity(0.1))
+                                    .clipShape(Circle())
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        TextField("Enter OTP", text: $viewModel.otp)
+                            .keyboardType(.numberPad)
+                            .padding()
+                            .frame(height: 50)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                            )
+                        
+                        HStack {
+                            Button(action: {
+                                viewModel.resetTimer()
+                            }) {
+                                Text("Resend OTP")
+                                    .font(.subheadline)
+                                    .foregroundColor(viewModel.isResendActive ? .blue : .gray)
+                            }
+                            .disabled(!viewModel.isResendActive)
+                            
+                            Spacer()
+                            
+                            Text(viewModel.timerCount > 0 ? "Resend in \(viewModel.timerCount)s" : "")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding()
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    
+                    // NavigationLink for transitioning to the home screen
+                    NavigationLink(destination: HomeTabBar()
+                        .navigationBarBackButtonHidden(true), isActive: $viewModel.navigateToHomeScreen) {
+                            EmptyView()
+                        }
+                    
+                    Button(action: {
+                        viewModel.submitOTP()
+                    }) {
+                        Text("Submit")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                }
+                .onAppear(perform: viewModel.startTimer)
+                .onDisappear(perform: viewModel.stopTimer)
+                
+                if viewModel.hasError {
+                
+                    Pro11Alert(title: "", message: "", buttonTitle: ""){
+                        viewModel.hasError = false
                     }
                 }
-                .padding()
-                .background(Color.blue.opacity(0.1))
-                .cornerRadius(10)
-                .padding(.horizontal)
-                
-                // NavigationLink for transitioning to the home screen
-                NavigationLink(destination: HomeTabBar()
-                    .navigationBarBackButtonHidden(true), isActive: $navigateToHomeScreen) {
-                    EmptyView()
-                }
-                
-                Button(action: {
-                    // Submit OTP logic
-                    print("OTP Submitted: \(otp)")
-                    navigateToHomeScreen = true // Trigger navigation
-                }) {
-                    Text("Submit")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
-                Spacer()
-                
             }
-            .onAppear(perform: startTimer)
-        }
-    }
-    
-    // Start the timer
-    private func startTimer() {
-        timerCount = 45
-        isResendActive = false
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if timerCount > 0 {
-                timerCount -= 1
-            } else {
-                timer.invalidate()
-                isResendActive = true
-            }
-        }
-    }
-    
-    private func resetTimer() {
-        startTimer()
     }
 }
 
-struct HomeScreen: View {
-    var body: some View {
-        VStack {
-            Text("Welcome to Home Screen")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.green.opacity(0.1))
-    }
-}
 
 #Preview {
-    OTPScreen()
+    OTPScreen(email: "myubuntuu@gmail.com", token: "123456")
 }

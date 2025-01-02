@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+struct UserStorage {
+    
+    @Storage(key: "isLoggedIn", defaultValue: false)
+    static var isLoggedIn: Bool
+    
+    @Storage(key: "token", defaultValue: "")
+    static var token: String
+
+    
+    static func clearToken() {
+        token = ""
+    }
+
+}
+

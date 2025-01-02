@@ -17,7 +17,7 @@ class AllMatchesViewModel:ObservableObject {
          let fantasyHomeRouter = FantasyHomeRouter(endpoint: .upcomingMatches("100"))
         
         NetworkManager.shared.request(route: fantasyHomeRouter, responseType: BaseResponse<FantasyHomeScreenServiceResponseModel>.self)
-            .receive(on: DispatchQueue.main) // Ensure updates happen on the main thread
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

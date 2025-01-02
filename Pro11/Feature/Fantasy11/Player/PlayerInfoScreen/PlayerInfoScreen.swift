@@ -45,7 +45,7 @@ struct BottomNameImage: View {
     var body: some View {
         
         VStack {
-            Image("man")
+            Image("cricketer")
                 .resizable()
                 .frame(width: 100, height: 100)
             
@@ -66,11 +66,13 @@ struct BottomNameImage: View {
 
 
 struct PlayerMainDetail:View {
+    @Environment(\.presentationMode) var presentationManager
     var body: some View {
         VStack {
             HStack {
                 ImageButton(image: "close"){
                     print("Clicked on close")
+                    presentationManager.wrappedValue.dismiss()
                 }
                 Text("Player Info")
                     .font(.title2)

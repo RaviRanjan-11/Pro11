@@ -9,10 +9,28 @@ import SwiftUI
 
 struct Pro11Home: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0) {
+//            NavigationBar(title: "Home")
+            FantasyHomeScreen()
+//            Spacer()
+        }
     }
 }
 
 #Preview {
     Pro11Home()
+}
+
+struct BannerView: View {
+    let banners: [String]
+
+    var body: some View {
+        TabView {
+            ForEach(banners, id: \.self) { banner in
+               
+            }
+            
+        }
+        .tabViewStyle(PageTabViewStyle())
+    }
 }

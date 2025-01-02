@@ -12,7 +12,7 @@ struct Player: View {
     private var height: CGFloat
     private var playerImage: String
 
-    init(width: CGFloat = 150, height: CGFloat = 150, playerImage: String = "man") {
+    init(width: CGFloat = 150, height: CGFloat = 150, playerImage: String = "cricketer") {
         self.width = width
         self.height = height
         self.playerImage = playerImage
@@ -44,5 +44,5 @@ struct Player: View {
 }
 
 #Preview {
-    Player(width: 150, height: 150, playerImage: "man")
+    Player(width: 150, height: 150, playerImage: "cricketer")
 }

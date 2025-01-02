@@ -9,10 +9,17 @@ import SwiftUI
 
 struct LRGradientView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LinearGradient(
+            gradient: Gradient(colors: [
+                Color(red: 0.7, green: 0, blue: 0),
+                Color(red: 0.4, green: 0, blue: 0) // Dark red
+            ]),
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+        .ignoresSafeArea() 
     }
 }
-
 #Preview {
     LRGradientView()
 }
