@@ -51,10 +51,14 @@ final class NetworkManager {
             return session.dataTaskPublisher(for: request)
                 .tryMap { try self.validateResponse($0) }
                 .decode(type: T.self, decoder: JSONDecoder())
+                .handleEvents(receiveOutput: { decodedResponse in
+                    self.logDecodedResponse(decodedResponse)
+                })
                 .mapError { self.mapError($0) }
                 .receive(on: DispatchQueue.main) // Ensure UI updates occur on the main thread
                 .handleEvents(receiveSubscription: { _ in
                     self.printLog("📡 Request Sent", type: .info)
+                    
                 })
                 .eraseToAnyPublisher()
         } catch {
@@ -119,7 +123,7 @@ final class NetworkManager {
             return .unknown
         }
     }
-
+    
     private func logDecodingError(_ error: DecodingError) {
         switch error {
         case .keyNotFound(let key, let context):
@@ -134,7 +138,7 @@ final class NetworkManager {
             printLog("❌ Decoding Error: Unknown error occurred during decoding.", type: .error)
         }
     }
-
+    
     
     private func printRequestLog(_ request: URLRequest) {
         printLog("🌐 [Request] \(request.httpMethod ?? "UNKNOWN") \(request.url?.absoluteString ?? "Invalid URL")", type: .info)
@@ -158,6 +162,24 @@ final class NetworkManager {
             print("🐛 \(message)")
         }
     }
+    private func logDecodedResponse<T: Decodable>(_ response: T) {
+        if let encodableResponse = response as? Encodable {
+            do {
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                let responseData = try encoder.encode(encodableResponse)
+                if let jsonString = String(data: responseData, encoding: .utf8) {
+                    printLog("📦 [Decoded Response]: \(jsonString)", type: .debug)
+                }
+            } catch {
+                printLog("🐛 Failed to log decoded response: \(error)", type: .error)
+            }
+        } else {
+            printLog("⚠️ Response type is not Encodable, skipping log.", type: .debug)
+        }
+    }
+
+
 }
 
 // MARK: - Logging Types

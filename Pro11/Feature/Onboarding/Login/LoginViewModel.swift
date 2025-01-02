@@ -39,7 +39,7 @@ class LoginViewModel: ObservableObject {
     
     /// Extracts the authentication token from the login response, if available.
     var token: String? {
-        loginResponse?.data?.accessToken
+        loginResponse?.data?.token
     }
     
     /// Determines whether the submit button should be disabled based on form validation.
