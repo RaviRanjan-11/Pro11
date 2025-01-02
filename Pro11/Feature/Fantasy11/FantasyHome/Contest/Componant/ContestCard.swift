@@ -18,7 +18,8 @@ struct ContestCardView: View {
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundColor(.green)
                         Text(data.priceType ?? "")
-                            .font(.headline)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                         Spacer()
                     }
                 }

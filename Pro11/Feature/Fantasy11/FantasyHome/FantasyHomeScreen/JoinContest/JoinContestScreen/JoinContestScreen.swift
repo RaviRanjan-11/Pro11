@@ -14,7 +14,11 @@ struct JoinContestScreen: View {
     @State private var contestTime = "19h 09m left"
     @State private var prize = "₹55,000"
     @State private var naviagteToCreateTeam = false
+    var contestData: ContestModelData?
 
+    init(contestData: ContestModelData) {
+        self.contestData = contestData
+    }
     @Environment(\.presentationMode) var presentationManager
 
     var body: some View {
@@ -25,30 +29,31 @@ struct JoinContestScreen: View {
                     presentationManager.wrappedValue.dismiss()
                 }
                 // Contest Card
-                JoinContestCard {
-                    print("Join contest callback")
-                    naviagteToCreateTeam.toggle()
+                
+                if let contestData {
+                    JoinContestCard(contestData: contestData)
+                    
+                    // Offer Section
+                    JoinContestOfferView()
+                    
+                    // Scrollable Tabs Section
+                    ScrollableTabSwitcher(
+                        tabs: [
+                            TabItem(
+                                title: "Winning",
+                                view: AnyView(Text("Winning Content").font(.title).foregroundColor(.black))
+                            ),
+                            TabItem(
+                                title: "Leaderboard",
+                                view: AnyView(LeaderBoard().padding(.vertical))
+                            )
+                        ],
+                        selectedColor:.red
+                        
+                    )
+                    
                 }
-
-                // Offer Section
-                JoinContestOfferView()
-
-                // Scrollable Tabs Section
-                ScrollableTabSwitcher(
-                    tabs: [
-                        TabItem(
-                            title: "Winning",
-                            view: AnyView(Text("Winning Content").font(.title).foregroundColor(.black))
-                        ),
-                        TabItem(
-                            title: "Leaderboard",
-                            view: AnyView(LeaderBoard().padding(.vertical))
-                        )
-                    ],
-                    selectedColor:.red
-                
-                )
-                
+                    
             }
             .background(
                 NavigationLink(destination: TeamCreationScreen()
@@ -62,7 +67,7 @@ struct JoinContestScreen: View {
 }
 
 #Preview {
-    JoinContestScreen()
+    JoinContestScreen(contestData: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435))
 }
 
 struct IconImageWithTitleAndValue: View {

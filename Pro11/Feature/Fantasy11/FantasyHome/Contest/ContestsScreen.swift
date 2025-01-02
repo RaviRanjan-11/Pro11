@@ -17,9 +17,7 @@ struct ContestsScreen: View {
             ContestHeaderView() {
                 presentationManager.wrappedValue.dismiss()
             }
-
             ScrollView {
-                // Grouped Contests List
                 LazyVStack(spacing: 20) {
                     if !viewmodel.sectionedContests.isEmpty {
                         ForEach(viewmodel.sectionedContests.keys.sorted(), id: \.self) { contestType in
@@ -30,7 +28,7 @@ struct ContestsScreen: View {
                                 
                                 ForEach(viewmodel.sectionedContests[contestType] ?? [], id: \.id) { contest in
                                     NavigationLink(
-                                        destination: JoinContestScreen()
+                                        destination: JoinContestScreen(contestData: contest)
                                             .navigationBarBackButtonHidden(true),
                                         isActive: $naviagteToJoinContestScreen
                                     ) {

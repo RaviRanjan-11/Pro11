@@ -38,7 +38,6 @@ struct FantasyHomeHeaderView: View {
                                 .stroke(Color.white, lineWidth: 2) // White border
                         )
                     
-                    // Left: Sports Selection Dropdown
                     Button(action: {
                         withAnimation {
                             showDropdown.toggle()

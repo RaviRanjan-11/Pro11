@@ -16,7 +16,7 @@ struct JoinContestButton: View {
             callback()
            
         }) {
-            Text("Join \(price)")
+            Text("Join ₹ \(price)")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, minHeight: 50)
