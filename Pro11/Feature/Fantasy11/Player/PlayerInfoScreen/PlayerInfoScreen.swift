@@ -82,7 +82,7 @@ struct PlayerMainDetail:View {
                 Spacer()
             }
             HStack {
-                Player(width: 80, height: 80)
+                PlayerImageView(width: 80, height: 80)
                 Spacer()
                 VStack {
                     

@@ -8,16 +8,18 @@ import SwiftUI
 struct ContestsScreen: View {
     @State private var naviagteToJoinContestScreen: Bool = false
     @Environment(\.presentationMode) var presentationManager
-    @StateObject var viewmodel: ContestViewModel = ContestViewModel()
-    // We need match id to show all the contest
-    var selectedMatchID: String?
+    @StateObject var viewmodel: ContestViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Header Section
-            ContestHeaderView() {
-                presentationManager.wrappedValue.dismiss()
-            }
+            
+            
+            if let contestHeaderData =  viewmodel.contestHeaderData {
+                ContestHeaderView(contestHeaderData: contestHeaderData) {
+                    presentationManager.wrappedValue.dismiss()
+                }
+            } 
             ScrollView {
                 LazyVStack(spacing: 20) {
                     if !viewmodel.sectionedContests.isEmpty {
@@ -54,8 +56,8 @@ struct ContestsScreen: View {
         }
         .background(Color(.systemBackground))
         .onAppear {
-            print("match id is :", selectedMatchID ?? "" )
-            viewmodel.getContestBy(match: selectedMatchID ?? "")
+            print("match id is :", viewmodel.contestHeaderData?.contestId ?? "" )
+            viewmodel.getContestBy()
         }
     }
 
@@ -72,7 +74,7 @@ struct ContestsScreen: View {
 }
 
 #Preview {
-    ContestsScreen()
+    ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: ContestHeaderData.mockData))
 }
 
 

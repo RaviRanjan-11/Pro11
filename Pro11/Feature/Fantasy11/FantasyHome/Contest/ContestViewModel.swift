@@ -13,11 +13,23 @@ import Combine
 class ContestViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
+    var contestHeaderData: ContestHeaderData?
     @Published var contests: [ContestModelData] = []
     @Published var sectionedContests: [String: [ContestModelData]] = [:]
     
-    func getContestBy(match id: String = "99786") {
-        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID(id))
+    
+    init(contestHeaderData: ContestHeaderData) {
+        self.contestHeaderData = contestHeaderData
+    }
+
+    
+    func getContestBy() {
+        
+//        guard let contestId = contestHeaderData?.contestId else { return }
+//        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID(contestId))
+        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID("102045"))
+
+        
         
         NetworkManager.shared.request(route: fantasyHomeRouter, responseType: BaseResponse<[ContestModelData]>.self)
             .receive(on: DispatchQueue.main)

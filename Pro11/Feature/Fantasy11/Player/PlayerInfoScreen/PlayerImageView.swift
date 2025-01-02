@@ -1,5 +1,5 @@
 //
-//  Player.swift
+//  PlayerImageView.swift
 //  Pro11
 //
 //  Created by Ravi Ranjan on 23/12/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Player: View {
+struct PlayerImageView: View {
     private var width: CGFloat
     private var height: CGFloat
     private var playerImage: String
@@ -44,5 +44,5 @@ struct Player: View {
 }
 
 #Preview {
-    Player(width: 150, height: 150, playerImage: "cricketer")
+    PlayerImageView(width: 150, height: 150, playerImage: "cricketer")
 }

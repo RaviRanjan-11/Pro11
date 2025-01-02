@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct ContestHeaderView: View {
-    
-    var title: String = "Login"
+   
+    var contestHeaderData: ContestHeaderData
     var action: () -> Void
-    var teamA: String = "IND"
-    var teamB: String = "AUS"
-    var teamAImage: String = "india"
-    var teamBImage: String = "australia"
 
     var body: some View {
         
@@ -38,14 +34,14 @@ struct ContestHeaderView: View {
                 HStack {
                    
                     
-                    Image(teamAImage)
+                    Image(contestHeaderData.teamAImage)
                         .resizable()
                         .frame(width: 32, height: 32)
                         .scaledToFill()
                         .background(Circle().fill(.clear))
                     
                     
-                    Text(teamA)
+                    Text(contestHeaderData.teamA)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
@@ -56,17 +52,17 @@ struct ContestHeaderView: View {
                         .padding(.horizontal, 10)
                         .offset(y: 5)
                     
-                    Text(teamB)
+                    Text(contestHeaderData.teamB)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Image(teamBImage)
+                    Image(contestHeaderData.teamBImage)
                         .resizable()
                         .frame(width: 40, height: 40)
                         .scaledToFill()
                         .background(Circle().fill(.clear))
                 }
                 
-                Text("22h 45m left")
+                Text(contestHeaderData.leftTime)
                     .font(.caption)
                     .foregroundColor(.white)
             }
@@ -83,5 +79,5 @@ struct ContestHeaderView: View {
 }
 
 #Preview {
-    ContestHeaderView( action: {})
+    ContestHeaderView( contestHeaderData: ContestHeaderData.mockData, action: {})
 }

@@ -24,7 +24,7 @@ struct AllMatchesScreen: View {
                             if let matches = viewmodel.upcomingMatches?.data, !matches.isEmpty {
                                 ForEach(matches, id: \.id) { match in
                                     NavigationLink(
-                                        destination: ContestsScreen()
+                                        destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: ContestHeaderData.mockData))
                                             .navigationBarBackButtonHidden(true),
                                         isActive: $navigateToContest
                                     ) {

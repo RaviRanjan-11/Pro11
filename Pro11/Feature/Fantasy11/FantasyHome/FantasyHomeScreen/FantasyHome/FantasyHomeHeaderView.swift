@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-
 struct FantasyHomeHeaderView: View {
     @State private var selectedSport: String = "Cricket" // Default sport
     @State private var showDropdown: Bool = false
