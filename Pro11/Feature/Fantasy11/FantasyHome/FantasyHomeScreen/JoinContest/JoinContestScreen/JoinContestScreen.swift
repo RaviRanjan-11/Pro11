@@ -31,7 +31,9 @@ struct JoinContestScreen: View {
                 // Contest Card
                 
                 if let contestData {
-                    JoinContestCard(contestData: contestData)
+                    JoinContestCard(contestData: contestData){
+                        naviagteToCreateTeam.toggle()
+                    }
                     
                     // Offer Section
                     JoinContestOfferView()

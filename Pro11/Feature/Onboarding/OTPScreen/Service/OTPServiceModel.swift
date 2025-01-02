@@ -34,7 +34,7 @@ struct OTPResponse: Codable {
 struct User: Codable {
     let userID: Int
     let username, email: String
-    let phoneNo: JSONNull?
+    let phoneNo: String?
     let role: String
 
     enum CodingKeys: String, CodingKey {

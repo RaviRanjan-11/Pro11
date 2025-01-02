@@ -112,12 +112,29 @@ final class NetworkManager {
     private func mapError(_ error: Error) -> NetworkError {
         if let networkError = error as? NetworkError {
             return networkError
-        } else if error is DecodingError {
+        } else if let decodingError = error as? DecodingError {
+            logDecodingError(decodingError)
             return .decodingError
         } else {
             return .unknown
         }
     }
+
+    private func logDecodingError(_ error: DecodingError) {
+        switch error {
+        case .keyNotFound(let key, let context):
+            printLog("❌ Decoding Error: Key '\(key.stringValue)' not found. Context: \(context.debugDescription)", type: .error)
+        case .typeMismatch(let type, let context):
+            printLog("❌ Decoding Error: Type mismatch for type '\(type)'. Context: \(context.debugDescription)", type: .error)
+        case .valueNotFound(let type, let context):
+            printLog("❌ Decoding Error: Value not found for type '\(type)'. Context: \(context.debugDescription)", type: .error)
+        case .dataCorrupted(let context):
+            printLog("❌ Decoding Error: Data corrupted. Context: \(context.debugDescription)", type: .error)
+        @unknown default:
+            printLog("❌ Decoding Error: Unknown error occurred during decoding.", type: .error)
+        }
+    }
+
     
     private func printRequestLog(_ request: URLRequest) {
         printLog("🌐 [Request] \(request.httpMethod ?? "UNKNOWN") \(request.url?.absoluteString ?? "Invalid URL")", type: .info)

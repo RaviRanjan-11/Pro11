@@ -138,9 +138,11 @@ class OTPScreenViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.isLoading = false
             print("Message: \(response.message)")
-            self.storeSessionToken(response.data?.accessToken ?? "")
+            guard let data = response.data else { return }
+            self.storeSessionData(data.accessToken, data.user.userID.toString, data.user.username)
             self.navigateToHomeScreen.toggle()
         }
+        
     }
 
     // MARK: - Token Management
@@ -148,8 +150,10 @@ class OTPScreenViewModel: ObservableObject {
     /// Stores the session token upon successful OTP verification.
     ///
     /// - Parameter token: The access token to store.
-    private func storeSessionToken(_ token: String) {
+    private func storeSessionData(_ token: String, _ userId: String, _ userName: String) {
         UserStorage.token = token
+        UserStorage.userId = userId
+        UserStorage.isLoggedIn = true
     }
 
     // MARK: - Timer Cleanup
