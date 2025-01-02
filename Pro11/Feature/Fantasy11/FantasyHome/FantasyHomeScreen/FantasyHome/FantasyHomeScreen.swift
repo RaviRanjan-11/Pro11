@@ -23,6 +23,7 @@ struct FantasyHomeScreen: View {
     
     @StateObject var viewmodel: FantasyHomeScreenViewModel = FantasyHomeScreenViewModel()
     
+    @State var selectedMatchID: String?
     var body: some View {
         VStack(spacing: 10) {
             FantasyHomeHeaderView()
@@ -65,6 +66,11 @@ struct FantasyHomeScreen: View {
                             )
                             .frame(width: UIScreen.main.bounds.width * 0.9)
                             .padding(.horizontal, 5)
+                            .onTapGesture {
+//                                selectedMatchID = matchData[index].id
+                                navigateToContest.toggle()
+                                
+                            }
                         }
                     }
                     .padding(.vertical, 10)
@@ -96,6 +102,7 @@ struct FantasyHomeScreen: View {
                         ForEach(matches, id: \.id) { match in
                             createMatchCardView(for: match.matchID)
                                 .onTapGesture {
+                                    selectedMatchID = match.matchID?.id?.toString
                                     navigateToContest = true
                                     
                                 }
@@ -112,7 +119,7 @@ struct FantasyHomeScreen: View {
                 }
                 .padding()
                 .background(
-                    NavigationLink(destination: ContestsScreen()
+                    NavigationLink(destination: ContestsScreen(selectedMatchID: selectedMatchID)
                         .navigationBarBackButtonHidden(true), isActive: $navigateToContest) {
                             EmptyView()
                         }
@@ -136,7 +143,6 @@ struct FantasyHomeScreen: View {
 func createMatchCardView(for match: MatchID?) -> some View {
     Group {
         if let match = match {
-            // If match is available, create MatchCardView
             MatchCardView(
                 teamName1: match.team1?.teamName ?? "",
                 teamName2: match.team2?.teamName ?? "",

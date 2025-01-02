@@ -8,9 +8,10 @@ import SwiftUI
 struct ContestsScreen: View {
     @State private var naviagteToJoinContestScreen: Bool = false
     @Environment(\.presentationMode) var presentationManager
-
     @StateObject var viewmodel: ContestViewModel = ContestViewModel()
-
+    // We need match id to show all the contest
+    var selectedMatchID: String?
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Header Section
@@ -48,11 +49,13 @@ struct ContestsScreen: View {
                     }
                 }
                 .padding()
+                
             }
         }
         .background(Color(.systemBackground))
         .onAppear {
-            viewmodel.getContestBy()
+            print("match id is :", selectedMatchID ?? "" )
+            viewmodel.getContestBy(match: selectedMatchID ?? "")
         }
     }
 
