@@ -101,34 +101,37 @@ struct FantasyHomeScreen: View {
                         ForEach(matches, id: \.id) { match in
                             createMatchCardView(for: match.matchID)
                                 .onTapGesture {
-                                    selecetdMatch = match.matchID?.id
-                                    navigateToContest = true
-                                    
+                                    if let matchID = match.matchID?.id {
+                                        selecetdMatch = matchID
+                                        navigateToContest = true
+                                    }
                                 }
                         }
                     } else {
                         VStack {
-                            
                             Spacer()
                             NoMatchView()
                             Spacer()
                         }
-                       
                     }
                 }
                 .padding()
                 .background(
-                    
-                    NavigationLink(destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selecetdMatch) ?? nil) )
-                        .navigationBarBackButtonHidden(true), isActive: $navigateToContest) {
-                            EmptyView()
+                    Group {
+                        if let selectedMatch = selecetdMatch {
+                            NavigationLink(
+                                destination: ContestsScreen(
+                                    viewmodel: ContestViewModel(
+                                        contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selectedMatch)
+                                    )
+                                )
+                                .navigationBarBackButtonHidden(true),
+                                isActive: $navigateToContest
+                            ) {
+                                EmptyView()
+                            }
                         }
-                )
-                .background(
-                    NavigationLink(destination: AllMatchesScreen()
-                        .navigationBarBackButtonHidden(true), isActive: $navigateToAllUpcomingMathces) {
-                            EmptyView()
-                        }
+                    }
                 )
             }
         }

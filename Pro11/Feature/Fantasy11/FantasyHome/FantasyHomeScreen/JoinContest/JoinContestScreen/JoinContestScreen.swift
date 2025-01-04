@@ -9,15 +9,13 @@ import SwiftUI
 
 struct JoinContestScreen: View {
     @State private var navigateToAllUpcomingMatches = false
-    @State private var spotsLeft = 5369
-    @State private var prizeAmount = "₹6 Lakhs"
-    @State private var contestTime = "19h 09m left"
-    @State private var prize = "₹55,000"
     @State private var naviagteToCreateTeam = false
     var contestData: ContestModelData?
+    var contestHeaderData: ContestHeaderData?
 
-    init(contestData: ContestModelData) {
+    init(contestData: ContestModelData, contestHeaderData: ContestHeaderData) {
         self.contestData = contestData
+        self.contestHeaderData = contestHeaderData
     }
     @Environment(\.presentationMode) var presentationManager
 
@@ -25,9 +23,10 @@ struct JoinContestScreen: View {
         ZStack {
             
             VStack {
-                JoinContestNavigationBar(contestTime: contestTime) {
+                
+                JoinContestNavigationBar(contestHeaderData: contestHeaderData, backButtonAction:  {
                     presentationManager.wrappedValue.dismiss()
-                }
+                })
                 // Contest Card
                 
                 if let contestData {
@@ -69,7 +68,7 @@ struct JoinContestScreen: View {
 }
 
 #Preview {
-    JoinContestScreen(contestData: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435))
+    JoinContestScreen(contestData: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435), contestHeaderData: .mockData)
 }
 
 struct IconImageWithTitleAndValue: View {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ContestModelData: Codable {
+struct ContestModelData: Codable, Identifiable {
     let id, matchID: Int
         let seriesID: Int?
         let contestType, contestDescription: String

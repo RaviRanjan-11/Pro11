@@ -6,10 +6,11 @@
 //
 import SwiftUI
 struct ContestsScreen: View {
-    @State private var naviagteToJoinContestScreen: Bool = false
+    @State private var navigateToJoinContestScreen: Bool = false
     @Environment(\.presentationMode) var presentationManager
     @StateObject var viewmodel: ContestViewModel
-    
+    @State private var selectedContest: ContestModelData?
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             
@@ -31,17 +32,7 @@ struct ContestsScreen: View {
                                     )
                                 
                                 ForEach(viewmodel.sectionedContests[contestType] ?? [], id: \.id) { contest in
-                                    NavigationLink(
-                                        destination: JoinContestScreen(contestData: contest)
-                                            .navigationBarBackButtonHidden(true),
-                                        isActive: $naviagteToJoinContestScreen
-                                    ) {
-                                        createContestCardView(for: contest)
-                                            .onTapGesture {
-                                                naviagteToJoinContestScreen.toggle()
-                                            }
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                                    createContestCardView(for: contest)
                                 }
                             }
                         }
@@ -52,7 +43,6 @@ struct ContestsScreen: View {
                     }
                 }
                 .padding()
-                
             }
         }
         .background(Color(.systemBackground))
@@ -60,19 +50,37 @@ struct ContestsScreen: View {
             print("match id is :", viewmodel.contestHeaderData?.contestId ?? "" )
             viewmodel.getContestBy()
         }
+        .background(
+            NavigationLink(
+                destination: Group {
+                    if let contest = selectedContest, let data = viewmodel.contestHeaderData {
+                        JoinContestScreen(contestData: contest, contestHeaderData: data)
+                    } else {
+                        NoMatchView()
+                    }
+                },
+                isActive: $navigateToJoinContestScreen
+            ) { EmptyView() }
+        )
+
     }
     
     func createContestCardView(for contest: ContestModelData?) -> some View {
         Group {
             if let contest = contest {
-                ContestCardView(data: contest)
-                    .frame(width: UIScreen.main.bounds.width * 0.9)
+                ContestCardView(data: contest, onClickJoin: {
+                    // ✅ Setting state variables for navigation
+                    selectedContest = contest
+                    navigateToJoinContestScreen = true
+                })
+                .frame(width: UIScreen.main.bounds.width * 0.9)
             } else {
                 NoMatchView()
             }
         }
     }
 }
+
 #if DEBUG
 #Preview {
     ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: ContestHeaderData.mockData))

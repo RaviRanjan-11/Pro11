@@ -8,15 +8,15 @@
 import Foundation
 
 struct ContestHeaderData {
-    var teamA: String
-    var teamB: String
-    var steamA: String
-    var steamB: String
-    var teamAImage: String
-    var teamBImage: String
-    var leftTime: String
-    var contestId: String
-    var seriesId: String
+    var teamA: String = ""
+    var teamB: String = ""
+    var steamA: String = ""
+    var steamB: String = ""
+    var teamAImage: String = ""
+    var teamBImage: String = ""
+    var leftTime: String = ""
+    var contestId: String = ""
+    var seriesId: String = ""
     
     init(teamA: String, teamB: String, teamAImage: String, teamBImage: String, leftTime: String, contestId: String, steamA: String = "", steamB: String = "", seriesId:String = "") {
         self.teamA = teamA

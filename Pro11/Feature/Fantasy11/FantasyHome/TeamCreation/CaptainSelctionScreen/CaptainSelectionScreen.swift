@@ -147,11 +147,6 @@ struct CaptainSelectionHeaderView: View {
 }
 
 
-
-
-
-
-
 struct PlayerCardForCaptainViceCaptain: View {
     var player: PlayerModelProperty
     var isCaptain: Bool

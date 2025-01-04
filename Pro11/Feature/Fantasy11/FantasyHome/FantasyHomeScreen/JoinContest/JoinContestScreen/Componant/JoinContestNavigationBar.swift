@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JoinContestNavigationBar: View {
-    var contestTime: String
+    var contestHeaderData: ContestHeaderData?
     var backButtonAction: () -> Void
     var body: some View {
         
@@ -27,11 +27,11 @@ struct JoinContestNavigationBar: View {
                 }
                 .padding(.trailing, 20)
                 VStack(alignment: .leading) {
-                    Text("STA vs THU")
+                    Text("\(contestHeaderData?.steamA ?? "") vs \(contestHeaderData?.steamB ?? "")")
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Text(contestTime)
+                    Text(contestHeaderData?.leftTime ?? "")
                         .font(.caption)
                         .foregroundColor(.white)
                 }
@@ -39,7 +39,7 @@ struct JoinContestNavigationBar: View {
             
             }
             .padding()
-            .background(LRGradientView())
+            .background(LRDGradientView())
             
 
         }
@@ -47,5 +47,5 @@ struct JoinContestNavigationBar: View {
 }
 
 #Preview {
-    JoinContestNavigationBar(contestTime: "15h:30m",backButtonAction: {})
+    JoinContestNavigationBar(backButtonAction: {})
 }
