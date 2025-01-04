@@ -22,7 +22,7 @@ struct FantasyHomeScreen: View {
     @State var navigateToAllUpcomingMathces: Bool = false
     
     @StateObject var viewmodel: FantasyHomeScreenViewModel = FantasyHomeScreenViewModel()
-    var selecetdMatch: Int?
+    @State var selecetdMatch: Int?
     
     var body: some View {
         VStack(spacing: 10) {
@@ -67,7 +67,6 @@ struct FantasyHomeScreen: View {
                             .frame(width: UIScreen.main.bounds.width * 0.9)
                             .padding(.horizontal, 5)
                             .onTapGesture {
-//                                selectedMatchID = matchData[index].id
                                 navigateToContest.toggle()
                                 
                             }
@@ -102,8 +101,7 @@ struct FantasyHomeScreen: View {
                         ForEach(matches, id: \.id) { match in
                             createMatchCardView(for: match.matchID)
                                 .onTapGesture {
-                                    
-                                    
+                                    selecetdMatch = match.matchID?.id
                                     navigateToContest = true
                                     
                                 }
@@ -121,7 +119,7 @@ struct FantasyHomeScreen: View {
                 .padding()
                 .background(
                     
-                    NavigationLink(destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selecetdMatch ?? 102045) ?? nil) )
+                    NavigationLink(destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selecetdMatch) ?? nil) )
                         .navigationBarBackButtonHidden(true), isActive: $navigateToContest) {
                             EmptyView()
                         }

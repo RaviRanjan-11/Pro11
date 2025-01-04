@@ -3,4 +3,100 @@
    uuid = "028F9403-C5BC-4477-A905-E6142B652B0D"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6D02A56-89DD-4EF3-8F1D-61D2CABF765E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "getContestHeaderDataForContest(from:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06C482FC-7AAA-41D8-B858-4E2014A53E85"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "getContestHeaderDataForContest(from:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "06C482FC-7AAA-41D8-B858-4E2014A53E85 - 2ebf7e8f65141433"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pro11.FantasyHomeScreenViewModel.getContestHeaderDataForContest(from: Swift.Optional&lt;Swift.Int&gt;) -&gt; Swift.Optional&lt;Pro11.ContestHeaderData&gt;"
+                  moduleName = "Pro11.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raviranjan/Desktop/Pro11/Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49">
+               </Location>
+               <Location
+                  uuid = "06C482FC-7AAA-41D8-B858-4E2014A53E85 - 4ed1905608ecfc80"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Pro11.MatchDataModel) -&gt; Swift.Bool in Pro11.FantasyHomeScreenViewModel.getContestHeaderDataForContest(from: Swift.Optional&lt;Swift.Int&gt;) -&gt; Swift.Optional&lt;Pro11.ContestHeaderData&gt;"
+                  moduleName = "Pro11.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raviranjan/Desktop/Pro11/Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A6460A7-409B-4F5D-A431-3128A337E720"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/TeamCreation/TeamSelection/TeamSelectionScreen/TeamSelectionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getPlayerByContestId(contestId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68DC951C-8438-49C5-9A6D-DE44614D17CD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

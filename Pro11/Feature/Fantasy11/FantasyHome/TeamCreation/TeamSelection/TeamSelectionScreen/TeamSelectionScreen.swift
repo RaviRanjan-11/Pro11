@@ -10,6 +10,8 @@ import SwiftUI
 struct TeamSelectionScreen: View {
     @StateObject var viewmodel: TeamSelectionViewModel = TeamSelectionViewModel()
     
+    var contestID: Int?
+    
     var body: some View {
         VStack {
             CreateTeamHeaderView(selectedPlayers: $viewmodel.selectedPlayers)
@@ -36,12 +38,20 @@ struct TeamSelectionScreen: View {
                 ],
                 selectedColor: .red
             )
-            TeamSeletionMoverView()
+            TeamSeletionMoverView {
+                viewmodel.movetoSelectCaptainViceCaptain()
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewmodel.getPlayerByContestId(contestId: "91814")
+            viewmodel.getPlayerByContestId(contestId: contestID?.toString ?? "0")
         }
+        .background(
+            NavigationLink(destination: CaptainSelectionScreen(viewModel: CaptainSelectionViewModel(selectedPlayers: viewmodel.selectedPlayers))
+                .navigationBarBackButtonHidden(true), isActive: $viewmodel.navigateToCaptainSelection) {
+                    EmptyView()
+                }
+        )
     }
 }
 

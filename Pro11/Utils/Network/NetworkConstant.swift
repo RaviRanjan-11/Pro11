@@ -91,6 +91,15 @@ final class NetworkConstant {
             }
             
         }
+        enum API {
+            case createUserTeam
+            
+            var path: String {
+                switch self {
+                case .createUserTeam: return "/user-teams"
+                }
+            }
+        }
 
     }
     

@@ -25,12 +25,12 @@ class ContestViewModel: ObservableObject {
     
     func getContestBy() {
         
-//        guard let contestId = contestHeaderData?.contestId else { return }
-//        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID(contestId))
-        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID("102045"))
+        guard let contestId = contestHeaderData?.contestId else { return }
+        debugPrint(contestId)
+        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID(contestId))
+        
+//        let fantasyHomeRouter = ContestRoute(endpoint: .getContestByMatchID(contestHeaderData?.contestId))
 
-        
-        
         NetworkManager.shared.request(route: fantasyHomeRouter, responseType: BaseResponse<[ContestModelData]>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in

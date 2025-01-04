@@ -16,7 +16,6 @@ struct TextButton: View {
     var body: some View {
         VStack {
             
-
             Button {
                 callBack()
                 
@@ -34,7 +33,7 @@ struct TextButton: View {
                 .padding(.vertical, 5)
                 .background(
                     RoundedRectangle(cornerRadius: 5, style: .circular)
-                        .fill(ColorPallate.primary)
+                        .fill(ColorPallate.mutatedDArkGreen)
                 )
             }
             

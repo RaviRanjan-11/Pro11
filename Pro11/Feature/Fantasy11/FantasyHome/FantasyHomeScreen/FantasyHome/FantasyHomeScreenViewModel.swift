@@ -35,7 +35,7 @@ class FantasyHomeScreenViewModel: ObservableObject {
     }
 
     // Get the contest header data for a given match ID
-    func getContestHeaderDataForContest(from matchID: Int? = 102045) -> ContestHeaderData? {
+    func getContestHeaderDataForContest(from matchID: Int?) -> ContestHeaderData? {
         
         guard let matchID else {
             print("No match ID provided.")
@@ -46,7 +46,7 @@ class FantasyHomeScreenViewModel: ObservableObject {
         }
         
         // Find the match by ID
-        if let match = matches.first(where: { $0.id == matchID }) {
+        if let match = matches.first(where: { $0.matchID?.id == matchID }) {
             return transformToContestHeaderData(from: match)
         } else {
             print("Match with ID \(matchID) not found.")
@@ -64,13 +64,17 @@ class FantasyHomeScreenViewModel: ObservableObject {
         let teamB = team2.teamName ?? "Unknown"
         let teamAImage = team1.imageID.map { "\($0)" } ?? "default_teamA_image"
         let teamBImage = team2.imageID.map { "\($0)" } ?? "default_teamB_image"
+        let sTeamA = team1.teamSName ?? "XXX"
+        let sTeamB = team2.teamSName ?? "XXX"
+
         
         // Format the remaining time
         let leftTime = formatRemainingTime(startDate: match.startDate, endDate: match.endDate)
         
-        let contestId = "\(match.id ?? 0)"
+        let contestId = "\(match.matchID?.id ?? 0)"
+        let seriesID = match.seriesID
         
-        return ContestHeaderData(teamA: teamA, teamB: teamB, teamAImage: teamAImage, teamBImage: teamBImage, leftTime: leftTime, contestId: contestId)
+        return ContestHeaderData(teamA: teamA, teamB: teamB, teamAImage: teamAImage, teamBImage: teamBImage, leftTime: leftTime, contestId: contestId, steamA: sTeamA, steamB: sTeamB,seriesId: seriesID?.toString ?? "")
     }
 
     // Format the remaining time between startDate and endDate

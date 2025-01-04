@@ -25,6 +25,8 @@ struct LoginScreen: View {
                     
                     TextField("Enter Email", text: $viewModel.email)
                         .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
+                        
                         .autocapitalization(.none)
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 8).fill(Color.white))
@@ -32,7 +34,7 @@ struct LoginScreen: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                    
+                                            
                     HStack {
                         Button(action: {
                             viewModel.isAbove18.toggle()

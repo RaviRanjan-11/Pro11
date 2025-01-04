@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TeamSeletionMoverView: View {
+    
+    var titleForNext: String = "NEXT"
+    var onclickNext: () -> Void
     var body: some View {
             HStack {
                 HStack {
@@ -47,8 +50,9 @@ struct TeamSeletionMoverView: View {
                 
                 Button {
                     
+                    onclickNext()
                 } label: {
-                    Text("NEXT")
+                    Text(titleForNext)
                         .font(.callout)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -68,6 +72,10 @@ struct TeamSeletionMoverView: View {
     }
 }
 
+#if DEBUG
+
 #Preview {
-    TeamSeletionMoverView()
+    TeamSeletionMoverView(onclickNext: {})
 }
+
+#endif

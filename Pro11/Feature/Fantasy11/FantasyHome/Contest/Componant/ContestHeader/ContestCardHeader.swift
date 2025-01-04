@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContestHeaderView: View {
    
-    var contestHeaderData: ContestHeaderData
+    var contestHeaderData: ContestHeaderData?
     var action: () -> Void
 
     var body: some View {
@@ -26,51 +26,60 @@ struct ContestHeaderView: View {
                     .foregroundColor(.white)
                 
             }
+            .padding(.horizontal)
             
-            Spacer()
             
-            VStack(alignment: .center) {
+            VStack(alignment: .leading) {
                 HStack {
                    
-                    
-                    Image(contestHeaderData.teamAImage)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .scaledToFill()
-                        .background(Circle().fill(.clear))
-                    
-                    
-                    Text(contestHeaderData.teamA)
+                    Text(contestHeaderData?.steamA ?? "")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
                     
-                    Image("vs-white")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .padding(.horizontal, 10)
-                        .offset(y: 5)
+                    Text("v")
+                        .font(.callout)
+                        .foregroundColor(.white)
                     
-                    Text(contestHeaderData.teamB)
+                    Text(contestHeaderData?.steamB ?? "")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Image(contestHeaderData.teamBImage)
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .scaledToFill()
-                        .background(Circle().fill(.clear))
+                    
                 }
                 
-                Text(contestHeaderData.leftTime)
+                Text(contestHeaderData?.leftTime ?? "")
                     .font(.caption)
                     .foregroundColor(.white)
+                
             }
-            .padding(.horizontal, 20)
             Spacer()
+            
+            HStack {
+                Image(systemName:"wallet.bifold.fill")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.white)
+                    
+                Text(" 0")
+                    .font(.callout)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                ImageButton(image: "plus.circle.fill", isSystemImage: true,tintcolor: .green,height: .small, width: .small){
+                    
+                }
+                .padding(.leading)
+
+            }
+            .padding(.all, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(hex: "#2F4F4F"))
+            )
             
             
         }
-        .padding()
+        .padding(.vertical)
+        .padding(.trailing)
         .background(
             LRDGradientView()
         )

@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 
+
+
 class TeamSelectionViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
@@ -16,6 +18,8 @@ class TeamSelectionViewModel: ObservableObject {
     @Published var selectedPlayers: [PlayerModelProperty] = []
     @Published var teamAselectedPlayersData: [PlayerModelProperty] = []
     @Published var teamBselectedPlayersData: [PlayerModelProperty] = []
+    @Published var navigateToCaptainSelection: Bool = false
+    @Published var errorMessage: String? = nil
 
     
     private let maxPlayersPerTeam = 6
@@ -25,7 +29,7 @@ class TeamSelectionViewModel: ObservableObject {
     private let maxAR = 4
     private let maxBowl = 6
     
-    func getPlayerByContestId(contestId: String = "91814") {
+    func getPlayerByContestId(contestId: String ) {
         let route = TeamSelectionRoute(endpoint: .getPlayerForContestWith(contestId: contestId, order: .desc, sortedBy: .points))
         
         NetworkManager.shared.request(route: route, responseType: BaseResponse<ContestTeamPlayersData>.self)
@@ -99,6 +103,49 @@ class TeamSelectionViewModel: ObservableObject {
         selectedPlayers.removeAll { $0.id == player.id }
         print("❌ Removed player: \(player.playerName)")
     }
+    
+    
+    func movetoSelectCaptainViceCaptain() {
+           let wkCount = selectedPlayers.filter { $0.role == .wkBatter }.count
+           let batterCount = selectedPlayers.filter { $0.role == .batter }.count
+           let bowlerCount = selectedPlayers.filter { $0.role == .bowler }.count
+           let allrounderCount = selectedPlayers.filter { $0.role == .bowlingAllrounder || $0.role == .battingAllrounder }.count
+           
+           if wkCount == 0 {
+               errorMessage = "At least one Wicketkeeper is required!"
+               debugPrint(errorMessage ?? "")
+               return
+           }
+           if batterCount < 2 {
+               errorMessage = "At least two Batsmen are required!"
+               debugPrint(errorMessage ?? "")
+
+               return
+           }
+           if bowlerCount < 2 {
+               errorMessage = "At least two Bowlers are required!"
+               debugPrint(errorMessage ?? "")
+
+               return
+           }
+           if allrounderCount < 2 {
+               errorMessage = "At least two Allrounders are required!"
+               debugPrint(errorMessage ?? "")
+
+               return
+           }
+        
+        if selectedPlayers.count < 11 {
+            errorMessage = "Team must contain minimum 11 players!"
+            debugPrint(errorMessage ?? "")
+            return
+        }
+        
+           
+           navigateToCaptainSelection.toggle()
+           errorMessage = nil
+           print("✅ Navigating to Captain Selection")
+       }
     
     
 }
