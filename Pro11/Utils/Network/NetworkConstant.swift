@@ -70,17 +70,19 @@ final class NetworkConstant {
         
         enum Cricket {
             case upcomingMatches(String)
-            
+            case getPlayerForContest(matchid: String, sortedBy: String, isDescending: Bool )
             var path: String {
                 switch self {
-                case .upcomingMatches(let limit): return "/upcomingMatches/?page=0&limit=\(limit)&isActive=true"
+                case .upcomingMatches(let limit): 
+                    return "/upcomingMatches/?page=0&limit=\(limit)&isActive=true"
+                case .getPlayerForContest(let matchid, let sortedBy, let isDescending):
+                    return "/player?matchId=\(matchid)&sortBy=\(sortedBy)&isDescending=\(isDescending)"
                 }
             }
         }
         
         enum Contests {
             case contestByMatchId(String)
-            
             
             var path: String {
                 switch self {

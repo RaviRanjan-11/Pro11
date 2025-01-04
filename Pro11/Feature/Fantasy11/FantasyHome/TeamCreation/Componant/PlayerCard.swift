@@ -31,8 +31,13 @@ enum PlayerSelected: CaseIterable {
 
 struct PlayerCard: View {
     
-    var isPlaying: PlayerSelected = .playing
+  
+    var playerStatus: PlayerSelected
+    var onPlusButtonTap: () -> Void
+    var isSelected: Bool = true
+    
     @State private var navigateToPlayerInfoScreen: Bool = false
+    var playerData: PlayerModelProperty
     
     var body: some View {
         
@@ -43,57 +48,60 @@ struct PlayerCard: View {
                     Image("cricketer")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 70, height: 70)
                     VStack {
-                        ImageButton(image: "questionmark.circle.fill",isSystemImage: true, tintcolor: .gray,height: .small, width: .small) {
+                        ImageButton(image: "questionmark.circle.fill", isSystemImage: true, tintcolor: .gray, height: .small, width: .small) {
                             navigateToPlayerInfoScreen.toggle()
                         }
-                        .offset(x:-40, y:-15)
-                        Text("IND")
-                            .font(.headline)
+                        .offset(x: -40, y: -15)
+                        Text(playerData.teamSName)
+                            .font(.caption)
                             .fontWeight(.semibold)
-                            .padding(.horizontal,10)
+                            .padding(.horizontal, 10)
                             .background(LRGradientView())
-                            .offset(x:-30, y:20)
+                            .offset(x: -30, y: 17)
                             .foregroundColor(.white)
-                        
                         
                     }
                     
                 }
                 VStack(alignment: .leading) {
-                    Text("S SMITH")
-                        .font(.callout)
+                    Text(playerData.playerName)
+                        .font(.subheadline)
                         .fontWeight(.bold)
-                    Text("Sel by 0.16%")
+                    Text("Sel by \(String(format: "%.2f"))%")
                         .font(.caption)
                         .foregroundColor(.gray)
-                    Text(isPlaying.status)
+                    Text(playerStatus.status)
                         .font(.caption)
                         .fontWeight(.bold)
-                        .foregroundColor(isPlaying.color)
+                        .foregroundColor(playerStatus.color)
                 }
                 Spacer()
-                Text("0")
+                Text(playerData.totalPoints.toString)
                     .font(.callout)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
                 Spacer()
-                Text("9.3")
+                Text("\(playerData.creditScore, specifier: "%.1f")")
                     .font(.callout)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
-                    .padding(.trailing,5)
-                ImageButton(image: "plus.app", isSystemImage: true,tintcolor: .green, height: .medium, width: .medium) {
-                    
+                    .padding(.trailing, 5)
+                ImageButton(image: "plus.app", isSystemImage: true, tintcolor: .green, height: .medium, width: .medium) {
+                    onPlusButtonTap()
                 }
+                
                 
             }
             
+            Divider()
+            
         }
         .padding(.horizontal)
+        .background(isSelected ? Color.blue.opacity(0.1) : Color.white)
         
-        Divider()
+//        Divider()
         NavigationLink(
             destination: PlayerInfoScreen()
                 .navigationBarBackButtonHidden(true),
@@ -102,12 +110,10 @@ struct PlayerCard: View {
             EmptyView()
         }
         
-        
-        
     }
-    
 }
 
 #Preview {
-    PlayerCard()
+    PlayerCard(playerStatus: .notPlaying, onPlusButtonTap: {}, playerData: mockPlayerData
+    )
 }

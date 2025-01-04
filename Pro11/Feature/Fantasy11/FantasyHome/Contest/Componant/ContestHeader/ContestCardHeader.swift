@@ -25,7 +25,6 @@ struct ContestHeaderView: View {
                     .font(.title)
                     .foregroundColor(.white)
                 
-                
             }
             
             Spacer()

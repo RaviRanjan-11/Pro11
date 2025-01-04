@@ -7,6 +7,7 @@
 
 import Foundation
 class ContestRoute: BaseRoute {
+    
     enum Endpoint {
         case getContestByMatchID(String)
 

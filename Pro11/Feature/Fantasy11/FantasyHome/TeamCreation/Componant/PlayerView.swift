@@ -9,12 +9,14 @@ import SwiftUI
 
 struct PlayerView: View {
     
-
+    var playerData: [PlayerModelProperty]
+    
     var body: some View {
         VStack {
+            // Header Buttons
             HStack {
-                Button{
-                    
+                Button {
+                    // Action for SELECTED BY button
                 } label: {
                     Text("SELECTED BY")
                         .font(.caption)
@@ -23,8 +25,8 @@ struct PlayerView: View {
                         .padding(.horizontal)
                 }
                 Spacer()
-                Button{
-                    
+                Button {
+                    // Action for POINTS button
                 } label: {
                     Text("POINTS")
                         .font(.caption)
@@ -33,8 +35,8 @@ struct PlayerView: View {
                 }
                 .padding(.leading, 50)
                 Spacer()
-                Button{
-                    
+                Button {
+                    // Action for CREDITS button
                 } label: {
                     Text("CREDITS")
                         .font(.caption)
@@ -45,12 +47,13 @@ struct PlayerView: View {
             }
             .padding(.horizontal)
             .padding(.bottom)
+            
             Divider()
-            ScrollView(showsIndicators: false){
-                
-                ForEach(0 ..< 5) { item in
-                    PlayerCard()
-                        
+            
+            // Scrollable List of Player Cards
+            ScrollView(showsIndicators: false) {
+                ForEach(playerData, id: \.id) { player in
+                    PlayerCard(playerStatus: .notPlaying, onPlusButtonTap: {}, playerData: player)
                 }
             }
         }
@@ -58,5 +61,5 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView()
+    PlayerView(playerData: [mockPlayerData])
 }

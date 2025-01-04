@@ -1,5 +1,5 @@
 //
-//  CreateTeamHeader.swift
+//  CreateTeamHeaderView.swift
 //  Pro11
 //
 //  Created by Ravi Ranjan on 28/12/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreateTeamHeader: View {
+struct CreateTeamHeaderView: View {
     @Environment(\.presentationMode) var presentationManager
     var body: some View {
         
@@ -126,33 +126,7 @@ struct CreateTeamHeader: View {
                 .fontWeight(.semibold)
                 .padding(.bottom, 30)
             
-            // Scrollable Tabs Section
-            ScrollableTabSwitcher(
-                tabs: [
-                    TabItem(
-                        title: "WK",
-                        view: AnyView(PlayerView()
-                            .padding(.top))
-                    ),
-                    TabItem(
-                        title: "BAT",
-                        view: AnyView(PlayerView()
-                            .padding(.top))
-                    ),
-                    TabItem(
-                        title: "AR",
-                        view: AnyView(PlayerView()
-                            .padding(.top))
-                    ),
-                    TabItem(
-                        title: "BOW",
-                        view: AnyView(PlayerView()
-                            .padding(.top))
-                    )
-                    
-                ],
-                selectedColor: .white
-            )
+          
 
         }
         .background(LRDGradientView())
@@ -163,7 +137,7 @@ struct CreateTeamHeader: View {
 }
 
 #Preview {
-    CreateTeamHeader()
+    CreateTeamHeaderView()
 }
 
 struct BoxProgressView: View {

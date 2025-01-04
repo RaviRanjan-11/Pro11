@@ -58,7 +58,7 @@ struct JoinContestScreen: View {
                     
             }
             .background(
-                NavigationLink(destination: TeamCreationScreen()
+                NavigationLink(destination: TeamSelectionScreen()
                     .navigationBarBackButtonHidden(true), isActive: $naviagteToCreateTeam) {
                         EmptyView()
                     }
