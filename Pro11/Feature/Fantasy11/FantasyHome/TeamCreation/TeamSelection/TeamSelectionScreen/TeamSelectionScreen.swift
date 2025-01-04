@@ -12,43 +12,38 @@ struct TeamSelectionScreen: View {
     
     var body: some View {
         VStack {
-            CreateTeamHeaderView()
+            CreateTeamHeaderView(selectedPlayers: $viewmodel.selectedPlayers)
+
             // Scrollable Tabs Section
             ScrollableTabSwitcher(
                 tabs: [
                     TabItem(
                         title: "WK",
-                        view: AnyView(PlayerView(playerData: viewmodel.players?.wktBatter ?? [])
-                            .padding(.top))
+                        view: AnyView(PlayerView(viewModel: viewmodel, playerData: viewmodel.players?.wktBatter ?? []).padding(.top))
                     ),
                     TabItem(
                         title: "BAT",
-                        view: AnyView(PlayerView(playerData: viewmodel.players?.batter ?? [])
-                            .padding(.top))
-                        
+                        view: AnyView(PlayerView(viewModel: viewmodel, playerData: viewmodel.players?.batter ?? []).padding(.top))
                     ),
                     TabItem(
                         title: "AR",
-                        view: AnyView(PlayerView(playerData: viewmodel.players?.allRounder ?? [])
-                            .padding(.top))
+                        view: AnyView(PlayerView(viewModel: viewmodel, playerData: viewmodel.players?.allRounder ?? []).padding(.top))
                     ),
                     TabItem(
                         title: "BOW",
-                        view: AnyView(PlayerView(playerData: viewmodel.players?.bowler ?? [])
-                            .padding(.top))
+                        view: AnyView(PlayerView(viewModel: viewmodel, playerData: viewmodel.players?.bowler ?? []).padding(.top))
                     )
-                    
                 ],
                 selectedColor: .red
             )
         }
-        
         .navigationBarBackButtonHidden(true)
-        .onAppear() {
+        .onAppear {
             viewmodel.getPlayerByContestId(contestId: "91814")
         }
     }
 }
+
 
 #Preview {
     TeamSelectionScreen()

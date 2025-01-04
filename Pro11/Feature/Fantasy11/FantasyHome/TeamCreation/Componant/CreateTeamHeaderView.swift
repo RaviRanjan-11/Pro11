@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateTeamHeaderView: View {
     @Environment(\.presentationMode) var presentationManager
+    @Binding var selectedPlayers: [PlayerModelProperty]
     var body: some View {
         
         VStack {
@@ -60,7 +61,7 @@ struct CreateTeamHeaderView: View {
                             .foregroundColor(.white)
                             .background(.gray)
                             .cornerRadius(3)
-                        Text("3")
+                        Text("\(selectedPlayers.count)")
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -119,7 +120,7 @@ struct CreateTeamHeaderView: View {
             .padding(.top,5)
             
             
-            BoxProgressView(totalBoxes: 11, filledBoxes: 2)
+            BoxProgressView(totalBoxes: 11, filledBoxes: selectedPlayers.count)
             Text("Max 7 Player from a team")
                 .foregroundColor(.white)
                 .font(.subheadline)
@@ -137,7 +138,7 @@ struct CreateTeamHeaderView: View {
 }
 
 #Preview {
-    CreateTeamHeaderView()
+    CreateTeamHeaderView(selectedPlayers: .constant([]))
 }
 
 struct BoxProgressView: View {

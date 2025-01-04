@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct PlayerView: View {
-    
+    @ObservedObject var viewModel: TeamSelectionViewModel
     var playerData: [PlayerModelProperty]
     
     var body: some View {
         VStack {
-            // Header Buttons
             HStack {
-                Button {
-                    // Action for SELECTED BY button
-                } label: {
+                Button { } label: {
                     Text("SELECTED BY")
                         .font(.caption)
                         .fontWeight(.bold)
@@ -25,9 +22,7 @@ struct PlayerView: View {
                         .padding(.horizontal)
                 }
                 Spacer()
-                Button {
-                    // Action for POINTS button
-                } label: {
+                Button { } label: {
                     Text("POINTS")
                         .font(.caption)
                         .fontWeight(.bold)
@@ -35,9 +30,7 @@ struct PlayerView: View {
                 }
                 .padding(.leading, 50)
                 Spacer()
-                Button {
-                    // Action for CREDITS button
-                } label: {
+                Button { } label: {
                     Text("CREDITS")
                         .font(.caption)
                         .fontWeight(.bold)
@@ -50,10 +43,16 @@ struct PlayerView: View {
             
             Divider()
             
-            // Scrollable List of Player Cards
             ScrollView(showsIndicators: false) {
-                ForEach(playerData, id: \.id) { player in
-                    PlayerCard(playerStatus: .notPlaying, onPlusButtonTap: {}, playerData: player)
+                LazyVStack {  // LazyVStack prevents re-rendering
+                    ForEach(playerData, id: \.id) { player in
+                        PlayerCard(
+                            playerStatus: .notPlaying,
+                            viewModel: viewModel,
+                            playerData: player
+                        )
+                        .id(player.id) // Ensure stability with a unique identifier
+                    }
                 }
             }
         }
@@ -61,5 +60,5 @@ struct PlayerView: View {
 }
 
 #Preview {
-    PlayerView(playerData: [mockPlayerData])
+    PlayerView(viewModel: TeamSelectionViewModel(), playerData: [mockPlayerData])
 }
