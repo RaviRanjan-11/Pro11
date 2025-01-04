@@ -72,9 +72,9 @@ struct ContestsScreen: View {
         }
     }
 }
-
+#if DEBUG
 #Preview {
     ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: ContestHeaderData.mockData))
 }
 
-
+#endif

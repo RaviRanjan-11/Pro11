@@ -77,6 +77,9 @@ struct ContestHeaderView: View {
     }
 }
 
+#if DEBUG
+
 #Preview {
     ContestHeaderView( contestHeaderData: ContestHeaderData.mockData, action: {})
 }
+#endif

@@ -121,7 +121,7 @@ struct FantasyHomeScreen: View {
                 .padding()
                 .background(
                     
-                    NavigationLink(destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selecetdMatch ?? 102045) ?? ContestHeaderData.mockData) )
+                    NavigationLink(destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selecetdMatch ?? 102045) ?? nil) )
                         .navigationBarBackButtonHidden(true), isActive: $navigateToContest) {
                             EmptyView()
                         }
@@ -165,9 +165,9 @@ func createMatchCardView(for match: MatchID?) -> some View {
 }
 
 
-
+#if DEBUG
 #Preview {
     FantasyHomeScreen()
 }
-
+#endif
 

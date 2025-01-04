@@ -14,13 +14,16 @@ class TeamSelectionViewModel: ObservableObject {
     
     @Published var players: ContestTeamPlayersData?
     @Published var selectedPlayers: [PlayerModelProperty] = []
+    @Published var teamAselectedPlayersData: [PlayerModelProperty] = []
+    @Published var teamBselectedPlayersData: [PlayerModelProperty] = []
+
     
     private let maxPlayersPerTeam = 6
     private let maxTotalPlayers = 11
-    private let maxWK = 1
-    private let maxBat = 4
+    private let maxWK = 4
+    private let maxBat = 6
     private let maxAR = 4
-    private let maxBowl = 4
+    private let maxBowl = 6
     
     func getPlayerByContestId(contestId: String = "91814") {
         let route = TeamSelectionRoute(endpoint: .getPlayerForContestWith(contestId: contestId, order: .desc, sortedBy: .points))
@@ -86,8 +89,10 @@ class TeamSelectionViewModel: ObservableObject {
         
         // If all conditions pass, add the player
         selectedPlayers.append(player)
+        
         print("✅ Player added: \(player.playerName)")
     }
+
     
     /// **Remove a player from the selected list**
     func removePlayer(player: PlayerModelProperty) {

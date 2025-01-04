@@ -93,7 +93,7 @@ struct PlayerCard: View {
                 ImageButton(
                     image: isSelected ? "checkmark.circle.fill" : "plus.app",
                     isSystemImage: true,
-                    tintcolor: isSelected ? .green : .blue,
+                    tintcolor: isSelected ? .green : ColorPallate.primary,
                     height: .medium,
                     width: .medium
                 ) {
@@ -122,6 +122,7 @@ struct PlayerCard: View {
 
 
 // SwiftUI Preview
+#if DEBUG
 #Preview {
     PlayerCard(
         playerStatus: .notPlaying,
@@ -129,3 +130,4 @@ struct PlayerCard: View {
         playerData: mockPlayerData
     )
 }
+#endif

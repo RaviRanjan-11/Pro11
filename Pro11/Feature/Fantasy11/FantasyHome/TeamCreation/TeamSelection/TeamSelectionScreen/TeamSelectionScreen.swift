@@ -36,6 +36,7 @@ struct TeamSelectionScreen: View {
                 ],
                 selectedColor: .red
             )
+            TeamSeletionMoverView()
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {

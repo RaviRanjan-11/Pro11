@@ -18,7 +18,7 @@ class ContestViewModel: ObservableObject {
     @Published var sectionedContests: [String: [ContestModelData]] = [:]
     
     
-    init(contestHeaderData: ContestHeaderData) {
+    init(contestHeaderData: ContestHeaderData?) {
         self.contestHeaderData = contestHeaderData
     }
 

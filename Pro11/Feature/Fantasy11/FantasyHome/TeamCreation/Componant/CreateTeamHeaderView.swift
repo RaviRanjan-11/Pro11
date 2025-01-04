@@ -61,10 +61,10 @@ struct CreateTeamHeaderView: View {
                             .foregroundColor(.white)
                             .background(.gray)
                             .cornerRadius(3)
-                        Text("\(selectedPlayers.count)")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
+//                        Text("\(selectedPlayers.count)")
+//                            .font(.subheadline)
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.white)
                     }
                 }
                 
@@ -75,7 +75,7 @@ struct CreateTeamHeaderView: View {
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Text("3/11")
+                    Text("\(selectedPlayers.count)/11")
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -103,10 +103,10 @@ struct CreateTeamHeaderView: View {
                             .background(.gray)
                             .cornerRadius(3)
 
-                        Text("4")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
+//                        Text("4")
+//                            .font(.subheadline)
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.white)
                     }
                     Image("australia")
                         .resizable()

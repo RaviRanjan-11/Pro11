@@ -58,7 +58,8 @@ struct PlayerView: View {
         }
     }
 }
-
+#if DEBUG
 #Preview {
     PlayerView(viewModel: TeamSelectionViewModel(), playerData: [mockPlayerData])
 }
+#endif
