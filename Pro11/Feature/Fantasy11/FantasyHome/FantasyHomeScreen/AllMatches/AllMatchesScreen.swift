@@ -11,6 +11,8 @@ struct AllMatchesScreen: View {
     @StateObject var viewmodel: AllMatchesViewModel = AllMatchesViewModel()
     @State var navigateToContest: Bool = false
     @Environment(\.presentationMode) var presentationManager
+    @State var selecetdMatch: Int?
+
 
     var body: some View {
             ZStack {
@@ -23,21 +25,40 @@ struct AllMatchesScreen: View {
                         LazyVStack(spacing: 10) {
                             if let matches = viewmodel.upcomingMatches?.data, !matches.isEmpty {
                                 ForEach(matches, id: \.id) { match in
-                                    NavigationLink(
-                                        destination: ContestsScreen(viewmodel: ContestViewModel(contestHeaderData:nil))
-                                            .navigationBarBackButtonHidden(true),
-                                        isActive: $navigateToContest
-                                    ) {
-                                        createMatchCardView(for: match.matchID)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                                    createMatchCardView(for: match.matchID)
+                                        .onTapGesture {
+                                            if let matchID = match.matchID?.id {
+                                                selecetdMatch = matchID
+                                                navigateToContest = true
+                                            }
+                                        }
                                 }
                             } else {
-                                Text("No upcoming matches.")
-                                    .foregroundColor(.gray)
+                                VStack {
+                                    Spacer()
+                                    NoMatchView()
+                                    Spacer()
+                                }
                             }
                         }
                         .padding()
+                        .background(
+                            Group {
+                                if let selectedMatch = selecetdMatch {
+                                    NavigationLink(
+                                        destination: ContestsScreen(
+                                            viewmodel: ContestViewModel(
+                                                contestHeaderData: viewmodel.getContestHeaderDataForContest(from: selectedMatch)
+                                            )
+                                        )
+                                        .navigationBarBackButtonHidden(true),
+                                        isActive: $navigateToContest
+                                    ) {
+                                        EmptyView()
+                                    }
+                                }
+                            }
+                        )
                     }
                 }
                 .onAppear {
@@ -54,15 +75,18 @@ struct AllMatchesScreen: View {
                     teamName2: match.team2?.teamName ?? "",
                     teamNameS1: match.team1?.teamSName ?? "",
                     teamNameS2: match.team2?.teamSName ?? "",
+                    
                     time: "Wed 7:30 PM",
                     prize: "₹10 Lakhs",
-                    seriesName: match.seriesName ?? ""
+                    seriesName: match.seriesName
+                    
                 )
                 .frame(width: UIScreen.main.bounds.width * 0.9)
             } else {
                 NoMatchView()
             }
         }
+        
     }
 }
 

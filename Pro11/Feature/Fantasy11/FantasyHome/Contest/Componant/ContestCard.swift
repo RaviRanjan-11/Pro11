@@ -49,11 +49,45 @@ struct ContestCardView: View {
                
                 GradientProgressBar(maxValue: data.totalSpot ?? 0, currentValue: data.filledSpot)
                 
+                HStack {
+                    HStack {
+                        Image("medal")
+                            .resizable()
+                            .frame(width: 20,height: 20)
+                        Text("₹ \(data.firstPrice)")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                    }
+                    HStack {
+                        Image("cup")
+                            .resizable()
+                            .frame(width: 20,height: 20)
+                        Text("\(data.winner) %")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("M")
+                            .font(.caption)
+                            .padding(.all, 2)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.white)
+                                    .border(Color.gray, width: 1)
+                                    
+                            )
+                        Text("up to \(data.maxTeamJoinByUser)")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                }
+                .padding(.top, 10)
+                
             }
-            
-            
-            Spacer()
-
+        
             
         }
         .padding()
@@ -65,7 +99,7 @@ struct ContestCardView: View {
     }
 }
 #Preview{
-    ContestCardView(data: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435), onClickJoin: {})
+    ContestCardView(data: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "Safe", contestDescription: "Another`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Match is mathc", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435), onClickJoin: {})
 }
 
 
