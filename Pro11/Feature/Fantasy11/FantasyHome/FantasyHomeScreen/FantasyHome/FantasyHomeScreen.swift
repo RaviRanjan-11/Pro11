@@ -94,8 +94,12 @@ struct FantasyHomeScreen: View {
                 )
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.red)
-                
-                // Upcoming Matches List
+               
+                NavigationLink(
+                    destination: AllMatchesScreen().navigationBarBackButtonHidden(),
+                    isActive: $navigateToAllUpcomingMathces) {
+                    EmptyView()
+                }
                 LazyVStack(spacing: 10) {
                     if let matches = viewmodel.upcomingMatches?.data, !matches.isEmpty {
                         ForEach(matches, id: \.id) { match in

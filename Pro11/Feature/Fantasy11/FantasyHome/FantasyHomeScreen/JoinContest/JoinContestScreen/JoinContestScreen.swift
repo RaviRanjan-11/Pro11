@@ -67,9 +67,9 @@ struct JoinContestScreen: View {
     }
 }
 
-#Preview {
-    JoinContestScreen(contestData: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435), contestHeaderData: .mockData)
-}
+//#Preview {
+//    JoinContestScreen(contestData: ContestModelData(id: 435, matchID: 534, seriesID: 675567, contestType: "sef", contestDescription: "fesfsd`", prizePool: 657675, status: "resr", joiningPrice: 345, isActive: false, winner: 4354, priceType: "Dssfsds", totalSpot: 765, filledSpot: 435, maxTeamJoinByUser: 45, firstPrice: 5435435), contestHeaderData: )
+//}
 
 struct IconImageWithTitleAndValue: View {
     var imageName: String = "first"

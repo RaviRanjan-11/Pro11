@@ -49,8 +49,8 @@ struct ContestCardView: View {
                
                 GradientProgressBar(maxValue: data.totalSpot ?? 0, currentValue: data.filledSpot)
                 
-                
             }
+            
             
             Spacer()
 
