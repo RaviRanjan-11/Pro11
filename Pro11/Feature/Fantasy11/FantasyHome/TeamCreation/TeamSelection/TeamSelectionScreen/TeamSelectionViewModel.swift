@@ -20,6 +20,7 @@ class TeamSelectionViewModel: ObservableObject {
     @Published var teamBselectedPlayersData: [PlayerModelProperty] = []
     @Published var navigateToCaptainSelection: Bool = false
     @Published var errorMessage: String? = nil
+    @Published var totalCredit: Double = 100
 
     
     private let maxPlayersPerTeam = 6
@@ -91,9 +92,16 @@ class TeamSelectionViewModel: ObservableObject {
             }
         }
         
+        if(totalCredit < player.creditScore) {
+            print("⚠️ Cannot select you have less credit than \(player.playerName)")
+            return
+        }
+        
         // If all conditions pass, add the player
         selectedPlayers.append(player)
         
+        totalCredit -= player.creditScore
+
         print("✅ Player added: \(player.playerName)")
     }
 
@@ -101,6 +109,8 @@ class TeamSelectionViewModel: ObservableObject {
     /// **Remove a player from the selected list**
     func removePlayer(player: PlayerModelProperty) {
         selectedPlayers.removeAll { $0.id == player.id }
+        totalCredit += player.creditScore
+
         print("❌ Removed player: \(player.playerName)")
     }
     

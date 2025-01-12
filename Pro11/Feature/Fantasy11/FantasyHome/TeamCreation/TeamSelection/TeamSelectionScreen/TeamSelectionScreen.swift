@@ -14,7 +14,7 @@ struct TeamSelectionScreen: View {
     
     var body: some View {
         VStack {
-            CreateTeamHeaderView(selectedPlayers: $viewmodel.selectedPlayers)
+            CreateTeamHeaderView(selectedPlayers: $viewmodel.selectedPlayers, totalCredit: $viewmodel.totalCredit)
 
             // Scrollable Tabs Section
             ScrollableTabSwitcher(

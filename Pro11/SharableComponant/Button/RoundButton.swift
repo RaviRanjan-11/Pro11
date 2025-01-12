@@ -9,7 +9,6 @@ import SwiftUI
 
 
 struct RoundButton: View {
-   
     
     enum Width {
         case infinity

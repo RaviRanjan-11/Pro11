@@ -19,6 +19,7 @@ struct ContestModelData: Codable, Identifiable {
         let priceType: String?
         let totalSpot: Int?
         let filledSpot, maxTeamJoinByUser, firstPrice: Int
+    
 
         enum CodingKeys: String, CodingKey {
             case id
@@ -28,3 +29,17 @@ struct ContestModelData: Codable, Identifiable {
         }
 }
 
+
+
+extension Int {
+    
+    var actualPrice: String {
+        
+        if self == 0 {
+            return "Free"
+        }
+        
+        return "\(self)"
+        
+    }
+}

@@ -34,7 +34,7 @@ struct ContestCardView: View {
                     Button {
                         onClickJoin()
                     }label: {
-                        Text("Join @ " + data.joiningPrice.toString)
+                        Text("Join @ " + data.joiningPrice.actualPrice)
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)

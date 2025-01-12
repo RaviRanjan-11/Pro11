@@ -10,6 +10,8 @@ import SwiftUI
 struct CreateTeamHeaderView: View {
     @Environment(\.presentationMode) var presentationManager
     @Binding var selectedPlayers: [PlayerModelProperty]
+    @Binding var totalCredit: Double
+
     var body: some View {
         
         VStack {
@@ -87,7 +89,7 @@ struct CreateTeamHeaderView: View {
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Text("89.0")
+                    Text("\(totalCredit.formatted(toPlaces: 1))")
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -138,7 +140,7 @@ struct CreateTeamHeaderView: View {
 }
 
 #Preview {
-    CreateTeamHeaderView(selectedPlayers: .constant([]))
+    CreateTeamHeaderView(selectedPlayers: .constant([]), totalCredit: .constant(100))
 }
 
 struct BoxProgressView: View {
@@ -174,4 +176,22 @@ struct BoxProgressView: View {
         BoxProgressView(totalBoxes: 11, filledBoxes: 11)
     }
     .padding()
+}
+
+
+extension Double {
+    /// Rounds the double to the specified number of decimal places.
+    /// - Parameter places: The number of decimal places to round to.
+    /// - Returns: A new `Double` rounded to the given decimal places.
+    func rounded(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+    
+    /// Converts the double to a string formatted to the specified decimal places.
+    /// - Parameter places: The number of decimal places to format to.
+    /// - Returns: A `String` representation of the double with the given decimal places.
+    func formatted(toPlaces places: Int) -> String {
+        return String(format: "%.\(places)f", self)
+    }
 }

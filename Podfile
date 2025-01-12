@@ -8,6 +8,7 @@ target 'Pro11' do
   # Pods for Pro11
 pod 'lottie-ios'
 pod 'IQKeyboardManagerSwift', '8.0.0'
+pod 'razorpay-pod', '1.2.5'
 
 
 end

@@ -28,7 +28,6 @@ final class NetworkConstant {
     enum Routes {
         case auth
         case cricket
-        case wallet
         case users
         case api
         case contests
@@ -37,7 +36,6 @@ final class NetworkConstant {
             switch self {
             case .auth: return "/auth"
             case .cricket: return "/api/cricket"
-            case .wallet: return "/wallet"
             case .users: return "/users"
             case .api: return "/api"
             case .contests: return "/api/contests"
@@ -93,14 +91,18 @@ final class NetworkConstant {
         }
         enum API {
             case createUserTeam
+            case wallet(userId: String)
+            case createOrder(userId: String)
             
             var path: String {
                 switch self {
                 case .createUserTeam: return "/user-teams"
+                case .wallet(let id): return "/wallet/\(id)"
+                case .createOrder(let id): return "/wallet/\(id)/wallet"
                 }
             }
         }
-
+        
     }
     
     static func buildURL(for route: Routes, endpointPath: String) -> String {

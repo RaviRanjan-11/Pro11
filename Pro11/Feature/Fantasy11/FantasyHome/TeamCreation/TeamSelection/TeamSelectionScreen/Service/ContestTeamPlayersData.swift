@@ -9,7 +9,7 @@ import Foundation
 // MARK: - DataClass
 struct ContestTeamPlayersData: Codable {
     let wktBatter, batter, allRounder, bowler: [PlayerModelProperty]
-
+    
     enum CodingKeys: String, CodingKey {
         case wktBatter
         case batter = "Batter"
@@ -19,7 +19,7 @@ struct ContestTeamPlayersData: Codable {
 }
 
 // MARK: - Batter
-struct PlayerModelProperty: Codable {
+struct PlayerModelProperty: Codable, Identifiable, Equatable {
     let id, playerID: Int
     let playerName: String
     let teamID: Int
@@ -30,7 +30,7 @@ struct PlayerModelProperty: Codable {
     let creditScore: Double
     let role: Role
     let playing: Bool
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case playerID = "playerId"
@@ -39,6 +39,12 @@ struct PlayerModelProperty: Codable {
         case teamName, teamSName
         case seriesID = "seriesId"
         case totalPoints, totalRuns, totalWickets, status, creditScore, role, playing
+    }
+    
+    static func == (lhs: PlayerModelProperty, rhs: PlayerModelProperty) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.playerID == rhs.playerID
+        
     }
 }
 
@@ -132,21 +138,21 @@ let mockContestTeamPlayersData = ContestTeamPlayersData(
 
 
 var mockPlayerData: PlayerModelProperty =
-    PlayerModelProperty(
-        id: 1,
-        playerID: 101,
-        playerName: "John Doe",
-        teamID: 10,
-        teamName: "Team A",
-        teamSName: "A",
-        seriesID: 5,
-        totalPoints: 150,
-        totalRuns: 250,
-        totalWickets: 5,
-        status: 1,
-        creditScore: 9.5,
-        role: .wkBatter,
-        playing: true)
+PlayerModelProperty(
+    id: 1,
+    playerID: 101,
+    playerName: "John Doe",
+    teamID: 10,
+    teamName: "Team A",
+    teamSName: "A",
+    seriesID: 5,
+    totalPoints: 150,
+    totalRuns: 250,
+    totalWickets: 5,
+    status: 1,
+    creditScore: 9.5,
+    role: .wkBatter,
+    playing: true)
 
 #endif
 

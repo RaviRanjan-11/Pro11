@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayerView: View {
-    @ObservedObject var viewModel: TeamSelectionViewModel
+    @StateObject var viewModel: TeamSelectionViewModel
     var playerData: [PlayerModelProperty]
     
     var body: some View {
@@ -44,20 +44,21 @@ struct PlayerView: View {
             Divider()
             
             ScrollView(showsIndicators: false) {
-                LazyVStack {  // LazyVStack prevents re-rendering
-                    ForEach(playerData, id: \.id) { player in
+                LazyVStack {
+                    ForEach(playerData, id: \.playerID) { player in
                         PlayerCard(
                             playerStatus: .notPlaying,
                             viewModel: viewModel,
                             playerData: player
                         )
-                        .id(player.id) // Ensure stability with a unique identifier
+                        .id(player.playerID)
                     }
                 }
             }
         }
     }
 }
+
 #if DEBUG
 #Preview {
     PlayerView(viewModel: TeamSelectionViewModel(), playerData: [mockPlayerData])

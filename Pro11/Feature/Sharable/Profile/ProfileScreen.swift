@@ -17,21 +17,28 @@ struct ProfileScreen: View {
             VStack {
                 NavigationBar(title: "Profile")
                 
+                
+                
                 List {
-                    NavigationLink(destination: KYCVerificationScreen()) {
-                        SettingRow(title: "KYC Verification", icon: "checkmark.circle.fill")
-                    }
-                    NavigationLink(destination: ReferAndEarnScreen()) {
-                        SettingRow(title: "Refer and Earn", icon: "star.fill")
-                    }
+                    
                     NavigationLink(destination: BalanceScreen(isPresentedFromTabBar: false).navigationBarBackButtonHidden()) {
                         SettingRow(title: "Balance", icon: "creditcard.fill")
                     }
+                    
+                    NavigationLink(destination: TransactionScreen()) {
+                        SettingRow(title: "Transaction", icon: "arrow.right.circle.fill")
+                    }
+                    
+                    NavigationLink(destination: ReferAndEarnScreen()) {
+                        SettingRow(title: "Refer and Earn", icon: "star.fill")
+                    }
+                   
                     NavigationLink(destination: Text("How to Play")) {
                         SettingRow(title: "How to Play", icon: "gamecontroller.fill")
                     }
-                    NavigationLink(destination: TransactionScreen()) {
-                        SettingRow(title: "Transaction", icon: "arrow.right.circle.fill")
+                    
+                    NavigationLink(destination: KYCVerificationScreen()) {
+                        SettingRow(title: "KYC Verification", icon: "checkmark.circle.fill")
                     }
                     NavigationLink(destination: HelpAndSupport()) {
                         SettingRow(title: "Help & Support", icon: "questionmark.circle.fill")

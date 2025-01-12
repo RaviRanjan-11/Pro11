@@ -37,8 +37,7 @@ struct JoinContestCard: View {
 
             GradientProgressBar(maxValue: contestData?.totalSpot ?? totalSpot, currentValue: contestData?.filledSpot ?? filledSpot)
 
-            JoinContestButton(price: contestData?.joiningPrice.toString ?? contestPrice) {
-                // Call the callback
+            JoinContestButton(price: contestData?.joiningPrice.actualPrice ?? contestPrice) {
                 joinContestCallback?()
             }
 

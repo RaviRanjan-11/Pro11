@@ -30,7 +30,7 @@ enum PlayerSelected: CaseIterable {
 
 struct PlayerCard: View {
     var playerStatus: PlayerSelected
-    @ObservedObject var viewModel: TeamSelectionViewModel
+    @StateObject var viewModel: TeamSelectionViewModel
     var playerData: PlayerModelProperty
 
     var isSelected: Bool {

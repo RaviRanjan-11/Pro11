@@ -14,6 +14,7 @@ class CaptainSelectionViewModel: ObservableObject {
     @Published var viceCaptain: PlayerModelProperty?
     private var cancellables = Set<AnyCancellable>()
 
+
     
     init(selectedPlayers: [PlayerModelProperty]) {
         self.selectedPlayers = selectedPlayers

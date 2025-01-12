@@ -7,48 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F6D02A56-89DD-4EF3-8F1D-61D2CABF765E"
+            uuid = "6B665012-BB0B-44E4-866D-7078BBAB3875"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
+            filePath = "Pro11/Utils/Network/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "getContestHeaderDataForContest(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "06C482FC-7AAA-41D8-B858-4E2014A53E85"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/FantasyHome/FantasyHomeScreenViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "getContestHeaderDataForContest(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2A6460A7-409B-4F5D-A431-3128A337E720"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pro11/Feature/Fantasy11/FantasyHome/TeamCreation/TeamSelection/TeamSelectionScreen/TeamSelectionViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "getPlayerByContestId(contestId:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "request(route:responseType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

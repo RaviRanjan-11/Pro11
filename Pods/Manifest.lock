@@ -40,10 +40,12 @@ PODS:
   - IQTextView (1.0.5):
     - IQKeyboardToolbar/Placeholderable
   - lottie-ios (4.5.0)
+  - razorpay-pod (1.2.5)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift (= 8.0.0)
   - lottie-ios
+  - razorpay-pod (= 1.2.5)
 
 SPEC REPOS:
   trunk:
@@ -56,6 +58,7 @@ SPEC REPOS:
     - IQTextInputViewNotification
     - IQTextView
     - lottie-ios
+    - razorpay-pod
 
 SPEC CHECKSUMS:
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
@@ -67,7 +70,8 @@ SPEC CHECKSUMS:
   IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
+  razorpay-pod: aa2df076ea44baab6cc8296c1ccc715fe2ca818c
 
-PODFILE CHECKSUM: d8c26dcaaca9024b8b7fc3540861277f0be63ccf
+PODFILE CHECKSUM: 585bbd67538bdbf1652bd63dbe36df223647a624
 
 COCOAPODS: 1.16.2

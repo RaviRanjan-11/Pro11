@@ -11,6 +11,7 @@ import Foundation
 class FantasyHomeRouter: BaseRoute {
     enum Endpoint {
         case upcomingMatches(String)
+        
 
         // Generate the path dynamically based on the endpoint
         var path: String {
