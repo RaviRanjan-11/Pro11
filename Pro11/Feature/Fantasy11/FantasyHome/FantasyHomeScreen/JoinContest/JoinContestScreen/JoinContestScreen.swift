@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct JoinContestScreen: View {
-    @State private var navigateToAllUpcomingMatches = false
+    @State private var navigateToMyTeam = false
     @State private var naviagteToCreateTeam = false
     var contestData: ContestModelData?
     var contestHeaderData: ContestHeaderData?
+    
+    @StateObject var viewmodel: JoinContestViewModel = JoinContestViewModel()
 
     init(contestData: ContestModelData, contestHeaderData: ContestHeaderData) {
         self.contestData = contestData
         self.contestHeaderData = contestHeaderData
+        
     }
     @Environment(\.presentationMode) var presentationManager
 
@@ -31,7 +34,8 @@ struct JoinContestScreen: View {
                 
                 if let contestData {
                     JoinContestCard(contestData: contestData){
-                        naviagteToCreateTeam.toggle()
+                        viewmodel.setMatchId(contestData.matchID)
+                        viewmodel.getTeamList()
                     }
                     
                     // Offer Section
@@ -57,7 +61,7 @@ struct JoinContestScreen: View {
                     
             }
             .background(
-                NavigationLink(destination: TeamSelectionScreen(contestID: contestData?.matchID)
+                NavigationLink(destination: TeamSelectionScreen(contestID: contestData?.matchID, matchID: contestData?.seriesID)
                     .navigationBarBackButtonHidden(true), isActive: $naviagteToCreateTeam) {
                         EmptyView()
                     }

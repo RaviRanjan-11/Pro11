@@ -29,12 +29,15 @@ class BalanceViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] response in
                 self?.balanceResponse = response.data
+                let walletid = response.data?.id.toString ?? ""
+                UserStorage.walletId = walletid
+
             })
             .store(in: &cancellables)
     }
     
     func createOrderForWallet(with amount: String) {
-        let router = BalanceRoute(endpoint: .createOrder(UserId: UserStorage.userId))
+        let router = BalanceRoute(endpoint: .createOrder(UserId: UserStorage.walletId))
         let body: CreateBalanceOrderRequestModel = CreateBalanceOrderRequestModel(amount: amount)
         router.body = body
         NetworkManager.shared.request(route: router, responseType: BaseResponse<CreateOrderResponseModel>.self)

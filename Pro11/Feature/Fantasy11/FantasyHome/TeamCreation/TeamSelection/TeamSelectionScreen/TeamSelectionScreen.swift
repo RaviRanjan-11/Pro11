@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct TeamSelectionScreen: View {
+    
     @StateObject var viewmodel: TeamSelectionViewModel = TeamSelectionViewModel()
     
     var contestID: Int?
+    var matchID: Int?
     
     var body: some View {
         VStack {
@@ -47,7 +49,7 @@ struct TeamSelectionScreen: View {
             viewmodel.getPlayerByContestId(contestId: contestID?.toString ?? "0")
         }
         .background(
-            NavigationLink(destination: CaptainSelectionScreen(viewModel: CaptainSelectionViewModel(selectedPlayers: viewmodel.selectedPlayers))
+            NavigationLink(destination: CaptainSelectionScreen(viewModel: CaptainSelectionViewModel(selectedPlayers: viewmodel.selectedPlayers, contestID: contestID, matchID: matchID))
                 .navigationBarBackButtonHidden(true), isActive: $viewmodel.navigateToCaptainSelection) {
                     EmptyView()
                 }

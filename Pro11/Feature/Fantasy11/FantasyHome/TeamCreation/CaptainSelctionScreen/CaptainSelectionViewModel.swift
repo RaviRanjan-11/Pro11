@@ -12,12 +12,15 @@ class CaptainSelectionViewModel: ObservableObject {
     @Published var selectedPlayers: [PlayerModelProperty]
     @Published var captain: PlayerModelProperty?
     @Published var viceCaptain: PlayerModelProperty?
+    var contestID: Int?
+    var matchID: Int?
     private var cancellables = Set<AnyCancellable>()
 
-
     
-    init(selectedPlayers: [PlayerModelProperty]) {
+    init(selectedPlayers: [PlayerModelProperty], contestID: Int? = nil, matchID: Int? = nil) {
         self.selectedPlayers = selectedPlayers
+        self.contestID = contestID
+        self.matchID = matchID
     }
     
     func setCaptain(player: PlayerModelProperty) {
@@ -48,7 +51,7 @@ class CaptainSelectionViewModel: ObservableObject {
         return CreateTeamRequest(
             userId: UserStorage.userId,
             teamName: "Pro11".createTeamName(),
-            matchId: 91814,
+            matchId: self.contestID ?? 0,
             captainId: captainId,
             viceCaptainId: viceCaptainId,
             playerIds: playerIds
@@ -75,7 +78,6 @@ class CaptainSelectionViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] response in
                 
-//                self?.players = response.data
             })
             .store(in: &cancellables)
         

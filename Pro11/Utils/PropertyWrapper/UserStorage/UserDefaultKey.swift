@@ -17,8 +17,10 @@ struct UserStorage {
     
     @Storage(key: "user_id", defaultValue: "")
     static var userId: String
-
     
+    @Storage(key: "wallet_id", defaultValue: "")
+    static var walletId: String
+
     static func clearToken() {
         token = ""
     }

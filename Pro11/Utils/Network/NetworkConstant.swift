@@ -93,12 +93,14 @@ final class NetworkConstant {
             case createUserTeam
             case wallet(userId: String)
             case createOrder(userId: String)
+            case userTeamByMatch(matchId: String, userId: String)
             
             var path: String {
                 switch self {
                 case .createUserTeam: return "/user-teams"
                 case .wallet(let id): return "/wallet/\(id)"
                 case .createOrder(let id): return "/wallet/\(id)/wallet"
+                case .userTeamByMatch(let matchID, let userid): return "/user-teams/\(matchID)/match?userId=\(userid)"
                 }
             }
         }

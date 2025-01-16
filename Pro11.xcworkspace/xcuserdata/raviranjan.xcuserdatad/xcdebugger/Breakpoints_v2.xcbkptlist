@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6B665012-BB0B-44E4-866D-7078BBAB3875"
+            uuid = "304E952C-4D39-4333-AD98-E5B577B8C206"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pro11/Utils/Network/NetworkManager.swift"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/TeamCreation/CaptainSelctionScreen/CaptainSelectionViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "request(route:responseType:)"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "createUserTeam()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
