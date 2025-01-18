@@ -81,8 +81,6 @@ class CaptainSelectionViewModel: ObservableObject {
             })
             .store(in: &cancellables)
         
-        
-        
     }
 }
 import Foundation

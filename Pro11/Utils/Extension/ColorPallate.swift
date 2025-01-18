@@ -35,4 +35,5 @@ enum ColorPallate {
     static let primary = Color(hex: "#05143b")
     static let secondary = Color(hex:"#FFFFFF")
     static let mutatedDArkGreen = Color(hex: "#2F4F4F")
+    static let darkGreenGroundColor = Color(hex: "#06402B")
 }

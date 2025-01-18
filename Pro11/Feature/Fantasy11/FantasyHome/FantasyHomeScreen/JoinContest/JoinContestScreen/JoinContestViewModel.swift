@@ -12,16 +12,19 @@ class JoinContestViewModel:ObservableObject {
     
     var matchId:Int?
     private var cancellables = Set<AnyCancellable>()
-    var teamList:[TeamResponse]?
+    @Published var teamList:[TeamResponse]?
+    
+    
     
     func setMatchId(_ id:Int){
         matchId = id
     }
     
-    func getTeamList(){
+    func getTeamList(onNavigateToMyTeam: @escaping () -> Void, onNavigateToCreateTeam: @escaping () -> Void) {
         
-        let route = TeamRoute(endpoint: .userTeamByMatch(matchId?.toString ?? "", UserStorage.userId))
-        
+        guard let matchId = matchId else { return }
+        let route = TeamRoute(endpoint: .userTeamByMatch(matchId.toString, UserStorage.userId))
+
         NetworkManager.shared.request(route: route, responseType: BaseResponse<[TeamResponse]>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
@@ -33,8 +36,13 @@ class JoinContestViewModel:ObservableObject {
                 }
             }, receiveValue: { [weak self] response in
                 self?.teamList = response.data
-                
+                if let teamList = self?.teamList, !teamList.isEmpty {
+                    onNavigateToMyTeam()
+                } else {
+                    onNavigateToCreateTeam()
+                }
             })
             .store(in: &cancellables)
     }
+
 }

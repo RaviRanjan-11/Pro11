@@ -25,10 +25,13 @@ struct RoundButton: View {
         
     }
     var title: String = "Create New Account"
+    var backgroundColor: Color = .clear
+    var foregroundColor: Color = .red
     var cornerRadius: CGFloat = 8
     var strokeColor: Color = Color.red
     var width: Width = .infinity
     var action: () -> Void
+    
   
     var body: some View {
         VStack {
@@ -36,11 +39,11 @@ struct RoundButton: View {
                 action()
             }) {
                 Text(title)
-                    .foregroundColor(.red)
+                    .foregroundColor(foregroundColor)
                     .fontWeight(.bold)
                     .frame(maxWidth:width.value)
                     .padding()
-                    .background(Color.white)
+                    .background(backgroundColor)
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: cornerRadius)

@@ -10,6 +10,8 @@ import SwiftUI
 struct JoinContestScreen: View {
     @State private var navigateToMyTeam = false
     @State private var naviagteToCreateTeam = false
+    
+
     var contestData: ContestModelData?
     var contestHeaderData: ContestHeaderData?
     
@@ -33,9 +35,16 @@ struct JoinContestScreen: View {
                 // Contest Card
                 
                 if let contestData {
-                    JoinContestCard(contestData: contestData){
+                    JoinContestCard(contestData: contestData) {
                         viewmodel.setMatchId(contestData.matchID)
-                        viewmodel.getTeamList()
+                        viewmodel.getTeamList(
+                            onNavigateToMyTeam: {
+                                navigateToMyTeam = true
+                            },
+                            onNavigateToCreateTeam: {
+                                naviagteToCreateTeam = true
+                            }
+                        )
                     }
                     
                     // Offer Section
@@ -61,11 +70,26 @@ struct JoinContestScreen: View {
                     
             }
             .background(
-                NavigationLink(destination: TeamSelectionScreen(contestID: contestData?.matchID, matchID: contestData?.seriesID)
-                    .navigationBarBackButtonHidden(true), isActive: $naviagteToCreateTeam) {
+                Group {
+                    NavigationLink(
+                        destination: MyTeamScreen(teamList: viewmodel.teamList ?? []),
+                        isActive: $navigateToMyTeam
+                    ) {
                         EmptyView()
                     }
+                    
+                    NavigationLink(
+                        destination: TeamSelectionScreen(
+                            contestID: contestData?.matchID,
+                            matchID: contestData?.seriesID
+                        ).navigationBarBackButtonHidden(true),
+                        isActive: $naviagteToCreateTeam
+                    ) {
+                        EmptyView()
+                    }
+                }
             )
+
             .navigationBarBackButtonHidden(true)
         }
     }
