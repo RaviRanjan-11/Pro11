@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: - Datum
-struct TeamResponse: Codable {
+struct TeamResponse: Codable , Identifiable{
+    var id: Int { teamID }
     let teamID: Int
     let teamName: String
     let batterCount, team1PlayerCount, team2PlayerCount: Int
@@ -17,6 +18,7 @@ struct TeamResponse: Codable {
     let captain, viceCaptain: TeamResponseCaptainViceCaptain
     let totalPoints: Int
 
+    var issSelected: Bool = false
     enum CodingKeys: String, CodingKey {
         case teamID = "teamId"
         case teamName, batterCount, team1PlayerCount, team2PlayerCount, team1Name, team2Name, bowlerCount, wkCount, allRounder, captain, viceCaptain, totalPoints

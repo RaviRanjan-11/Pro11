@@ -1,4 +1,4 @@
-//
+ //
 //  GradientStroke.swift
 //  lottie-swift
 //

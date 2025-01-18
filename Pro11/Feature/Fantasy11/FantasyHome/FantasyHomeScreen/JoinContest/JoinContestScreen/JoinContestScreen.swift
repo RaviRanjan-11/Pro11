@@ -72,7 +72,7 @@ struct JoinContestScreen: View {
             .background(
                 Group {
                     NavigationLink(
-                        destination: MyTeamScreen(teamList: viewmodel.teamList ?? []),
+                        destination: MyTeamScreen(teamList: viewmodel.teamList ?? [], contestData: contestData,contestHeaderData: contestHeaderData),
                         isActive: $navigateToMyTeam
                     ) {
                         EmptyView()

@@ -9,34 +9,53 @@ import SwiftUI
 struct CaptainSelectionScreen: View {
     
     @StateObject var viewModel: CaptainSelectionViewModel
+    @State var navigateToMyTeam: Bool = false
     @Environment(\.presentationMode) var presentationManager
     
-    
     var body: some View {
-        VStack {
-            CaptainSelectionHeaderView(captain: viewModel.captain, viceCaptain: viewModel.viceCaptain) {
-                presentationManager.wrappedValue.dismiss()
-            }
+        NavigationView {
+            VStack {
+                // Header View with dismiss action
+                CaptainSelectionHeaderView(captain: viewModel.captain, viceCaptain: viewModel.viceCaptain) {
+                    presentationManager.wrappedValue.dismiss()
+                }
                 .padding(.bottom)
-            
-            ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach(viewModel.selectedPlayers, id: \.id) { player in
-                        PlayerCardForCaptainViceCaptain(player: player,
-                                                        isCaptain: viewModel.captain?.id == player.id,
-                                                        isViceCaptain: viewModel.viceCaptain?.id == player.id,
-                                                        onSelectCaptain: { viewModel.setCaptain(player: player) },
-                                                        onSelectViceCaptain: { viewModel.setViceCaptain(player: player) })
+                
+                // List of Players
+                ScrollView(showsIndicators: false) {
+                    LazyVStack {
+                        ForEach(viewModel.selectedPlayers, id: \.id) { player in
+                            PlayerCardForCaptainViceCaptain(
+                                player: player,
+                                isCaptain: viewModel.captain?.id == player.id,
+                                isViceCaptain: viewModel.viceCaptain?.id == player.id,
+                                onSelectCaptain: { viewModel.setCaptain(player: player) },
+                                onSelectViceCaptain: { viewModel.setViceCaptain(player: player) }
+                            )
+                        }
                     }
                 }
+                
+                // Save Button
+                TeamSeletionMoverView(titleForNext: "SAVE") {
+                    viewModel.createUserTeam()
+                }
+                
+                Spacer()
+                
+                // Navigation Link to "My Team" Screen
+                NavigationLink(
+                    destination: MyTeamScreen(teamList: viewModel.teamList ?? []),
+                    isActive: $viewModel.navigateToMyTeam
+                ) {
+                    EmptyView()
+                }
             }
-            TeamSeletionMoverView(titleForNext: "SAVE"){
-                viewModel.createUserTeam()
-            }
-            Spacer()
+           
         }
     }
 }
+
 
 
 

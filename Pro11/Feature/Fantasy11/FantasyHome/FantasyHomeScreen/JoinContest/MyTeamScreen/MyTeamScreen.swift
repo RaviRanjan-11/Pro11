@@ -11,20 +11,24 @@ struct MyTeamScreen: View {
     
     @Environment(\.presentationMode) var presentationManager
     
-    var teamList: [TeamResponse] = []
+    @State private var naviagteToCreateTeam = false
+    
+    @State var teamList: [TeamResponse] = []
+    var contestData: ContestModelData?
+    var contestHeaderData: ContestHeaderData?
     
     var body: some View {
         
         
         VStack {
-            JoinContestNavigationBar(contestHeaderData: nil, backButtonAction:  {
+            JoinContestNavigationBar(contestHeaderData: contestHeaderData, backButtonAction:  {
                 presentationManager.wrappedValue.dismiss()
             })
             VStack {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach(teamList.indices, id: \.self) { index in
-                            MyTeamCard(team: teamList[index])
+                        ForEach($teamList) { $team in
+                            MyTeamCard(team: $team)
                                 .padding(.bottom)
                         }
                     }
@@ -34,13 +38,37 @@ struct MyTeamScreen: View {
             .padding(.vertical, 20)
             Spacer()
             
-            RoundButton(title: "Create New Team",backgroundColor: ColorPallate.darkGreenGroundColor, foregroundColor: .white, strokeColor: .clear) {
+            HStack{
+                
+                RoundButton(title: "Create New Team",backgroundColor: ColorPallate.darkGreenGroundColor, foregroundColor: .white, strokeColor: .clear) {
+                    naviagteToCreateTeam.toggle()
+                }
+                
+                if teamList.contains(where: { $0.issSelected }) {
+                    RoundButton(title: "Join", backgroundColor: ColorPallate.gradientRedLeft, foregroundColor: .white, strokeColor: .clear) {
+                        naviagteToCreateTeam.toggle()
+                    }
+                    .padding(.horizontal, 10)
+                }
                 
             }
+            
             
             .padding(.horizontal, 10)
             Spacer()
         }
+        .background(
+            NavigationLink(
+                destination: TeamSelectionScreen(
+                    contestID: contestData?.matchID,
+                    matchID: contestData?.seriesID
+                ).navigationBarBackButtonHidden(true),
+                isActive: $naviagteToCreateTeam
+            ) {
+                EmptyView()
+            }
+            
+        )
         .navigationBarBackButtonHidden(true)
         
     }
@@ -53,7 +81,7 @@ struct MyTeamScreen: View {
 
 struct MyTeamCard:View {
     
-    var team: TeamResponse
+    @Binding var team: TeamResponse
     var body: some View {
         ZStack {
             Image("ground-texture")
@@ -69,16 +97,19 @@ struct MyTeamCard:View {
                         .foregroundColor(.white)
                         .padding(.leading, 15)
                     Spacer()
-                    ImageButton(image: "draw",height: .small,width: .small){
+                    HStack (spacing: 30){
+                        ImageButton(image: "draw",height: .small,width: .small){
+                            
+                        }
                         
+                        ImageButton(image: "view",height: .small,width: .small){
+                            
+                        }
+                        CheckBox(isChecked: $team.issSelected, callback: { value in
+                            team.issSelected = value
+                        })
                     }
-                    .padding(.horizontal, 15)
-                    
-                    ImageButton(image: "view",height: .small,width: .small){
-                        
-                    }
-                    .padding(.trailing, 15)
-                    
+                    .padding(.horizontal, 10)
                 }
                 .padding()
                 .background(Color.black.opacity(0.3))
@@ -124,17 +155,17 @@ struct MyTeamCard:View {
                     Spacer()
                     Text("Wk (\(team.wkCount))")
                         .fontWeight(.bold)
-
+                    
                     Spacer()
                     Text("Bowl (\(team.bowlerCount))")
                         .fontWeight(.bold)
-
+                    
                     Spacer()
-
+                    
                     Text("All(\(team.allRounder))")
                         .fontWeight(.bold)
-
-
+                    
+                    
                 }
                 .font(.caption)
                 .padding(.horizontal)
@@ -153,9 +184,7 @@ struct MyTeamCard:View {
 }
 
 
-#Preview {
-    MyTeamCard(team: TeamResponse(teamID: 32, teamName: "MYPro11Circle", batterCount: 4, team1PlayerCount: 5, team2PlayerCount: 4, team1Name: "IND", team2Name: "AUS", bowlerCount: 5, wkCount: 2, allRounder: 3, captain: TeamResponseCaptainViceCaptain(id: 4, name: "N ANDHS", role: "WK", doB: "23434234", teamID: 4234, battingStyle: "BOW", bowlingStyle: nil, captain: nil, creditScore: 423, image: 4234, playerID: 42234, seriesID: 4335423, squadID: 32423), viceCaptain: TeamResponseCaptainViceCaptain(id: 4, name: "N ANDHS", role: "WK", doB: "23434234", teamID: 4234, battingStyle: "BOW", bowlingStyle: nil, captain: nil, creditScore: 423, image: 4234, playerID: 42234, seriesID: 4335423, squadID: 32423), totalPoints: 423))
-}
+
 
 
 struct PlayerImageProvider:View{
@@ -189,4 +218,9 @@ struct PlayerImageProvider:View{
             .padding(.horizontal,5)
         }
     }
+}
+
+
+#Preview {
+    MyTeamCard(team: .constant( TeamResponse(teamID: 32, teamName: "MYPro11Circle", batterCount: 4, team1PlayerCount: 5, team2PlayerCount: 4, team1Name: "IND", team2Name: "AUS", bowlerCount: 5, wkCount: 2, allRounder: 3, captain: TeamResponseCaptainViceCaptain(id: 4, name: "N ANDHS", role: "WK", doB: "23434234", teamID: 4234, battingStyle: "BOW", bowlingStyle: nil, captain: nil, creditScore: 423, image: 4234, playerID: 42234, seriesID: 4335423, squadID: 32423), viceCaptain: TeamResponseCaptainViceCaptain(id: 4, name: "N ANDHS", role: "WK", doB: "23434234", teamID: 4234, battingStyle: "BOW", bowlingStyle: nil, captain: nil, creditScore: 423, image: 4234, playerID: 42234, seriesID: 4335423, squadID: 32423), totalPoints: 423)))
 }
