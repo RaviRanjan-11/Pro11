@@ -12,7 +12,6 @@ class MyTeamViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     var contestID: Int?
-    var userTeamID: String = ""
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -20,13 +19,25 @@ class MyTeamViewModel: ObservableObject {
         self.teamList = teamList
         self.contestID = contestID
     }
+    
+    func getSelectedTeamIDs() -> String {
+        return teamList
+            .filter { $0.issSelected }
+            .map { $0.teamID.toString }
+            .joined(separator: ",")
+    }
 
     /// Join the contest with a selected team
     func joinContestWithTeam(_ team: TeamResponse, contestID: Int) {
+        guard !getSelectedTeamIDs().isEmpty else {
+            return
+        }
+        let selectedTeam = getSelectedTeamIDs()
+
         isLoading = true
         errorMessage = nil
 
-        let route = TeamRoute(endpoint: .joinContestWith(contestID: contestID.toString, userTeamId: userTeamID))
+        let route = TeamRoute(endpoint: .joinContestWith(contestID: contestID.toString, userTeamId: selectedTeam))
 
         NetworkManager.shared.request(route: route, responseType: BaseResponse<String>.self)
             .sink(receiveCompletion: { completion in
