@@ -8,54 +8,77 @@
 import SwiftUI
 
 struct MyTeamScreen: View {
-    
     @Environment(\.presentationMode) var presentationManager
-    
-    @State private var naviagteToCreateTeam = false
-    
-    @State var teamList: [TeamResponse] = []
+    @StateObject private var viewModel: MyTeamViewModel
+
+    @State private var navigateToCreateTeam = false
     var contestData: ContestModelData?
     var contestHeaderData: ContestHeaderData?
-    
+
+    // Initialize with the passed team list
+    init(teamList: [TeamResponse], contestData: ContestModelData?, contestHeaderData: ContestHeaderData?) {
+        _viewModel = StateObject(wrappedValue: MyTeamViewModel(teamList: teamList, contestID: contestData?.matchID ?? 0))
+        self.contestData = contestData
+        self.contestHeaderData = contestHeaderData
+    }
+
     var body: some View {
-        
-        
         VStack {
-            JoinContestNavigationBar(contestHeaderData: contestHeaderData, backButtonAction:  {
+            JoinContestNavigationBar(contestHeaderData: contestHeaderData) {
                 presentationManager.wrappedValue.dismiss()
-            })
-            VStack {
+            }
+
+            if viewModel.isLoading {
+                ProgressView("Loading...")
+                    .padding()
+            } else if let errorMessage = viewModel.errorMessage {
+                Spacer()
+
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+                Spacer()
+
+            } else {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach($teamList) { $team in
+                        ForEach($viewModel.teamList) { $team in
                             MyTeamCard(team: $team)
                                 .padding(.bottom)
                         }
                     }
                 }
-            }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 20)
-            Spacer()
-            
-            HStack{
-                
-                RoundButton(title: "Create New Team",backgroundColor: ColorPallate.darkGreenGroundColor, foregroundColor: .white, strokeColor: .clear) {
-                    naviagteToCreateTeam.toggle()
-                }
-                
-                if teamList.contains(where: { $0.issSelected }) {
-                    RoundButton(title: "Join", backgroundColor: ColorPallate.gradientRedLeft, foregroundColor: .white, strokeColor: .clear) {
-                        naviagteToCreateTeam.toggle()
+                .padding(.horizontal, 10)
+                .padding(.vertical, 20)
+
+                Spacer()
+
+                HStack {
+                    RoundButton(
+                        title: "Create New Team",
+                        backgroundColor: ColorPallate.darkGreenGroundColor,
+                        foregroundColor: .white,
+                        strokeColor: .clear
+                    ) {
+                        navigateToCreateTeam.toggle()
                     }
-                    .padding(.horizontal, 10)
+
+                    if let selectedTeam = viewModel.teamList.first(where: { $0.issSelected }) {
+                        RoundButton(
+                            title: "Join",
+                            backgroundColor: ColorPallate.gradientRedLeft,
+                            foregroundColor: .white,
+                            strokeColor: .clear
+                        ) {
+                            if let contestID = contestData?.seriesID {
+                                viewModel.joinContestWithTeam(selectedTeam, contestID: contestID)
+                            }
+                        }
+                        .padding(.horizontal, 10)
+                    }
                 }
-                
+                .padding(.horizontal, 10)
             }
-            
-            
-            .padding(.horizontal, 10)
-            Spacer()
         }
         .background(
             NavigationLink(
@@ -63,19 +86,18 @@ struct MyTeamScreen: View {
                     contestID: contestData?.matchID,
                     matchID: contestData?.seriesID
                 ).navigationBarBackButtonHidden(true),
-                isActive: $naviagteToCreateTeam
+                isActive: $navigateToCreateTeam
             ) {
                 EmptyView()
             }
-            
         )
         .navigationBarBackButtonHidden(true)
-        
     }
 }
 
+
 #Preview {
-    MyTeamScreen()
+    MyTeamScreen(teamList: [], contestData: nil, contestHeaderData: nil)
 }
 
 

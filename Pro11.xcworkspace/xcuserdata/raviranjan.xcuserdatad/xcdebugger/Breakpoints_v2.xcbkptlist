@@ -7,17 +7,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6EC80F6D-EC8B-489C-B1A1-03F3BEC1826A"
+            uuid = "AFA318A8-94BA-458C-A7F1-CE3EBA35E6DB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pro11/Feature/Fantasy11/FantasyHome/FantasyHomeScreen/JoinContest/MyTeamScreen/MyTeamScreen.swift"
+            filePath = "Pro11/Feature/Fantasy11/FantasyHome/TeamCreation/CaptainSelctionScreen/CaptainSelectionViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "getTeamList()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

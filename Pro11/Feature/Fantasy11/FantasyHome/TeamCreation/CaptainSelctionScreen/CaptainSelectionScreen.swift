@@ -45,7 +45,7 @@ struct CaptainSelectionScreen: View {
                 
                 // Navigation Link to "My Team" Screen
                 NavigationLink(
-                    destination: MyTeamScreen(teamList: viewModel.teamList ?? []),
+                    destination: MyTeamScreen(teamList: viewModel.teamList ?? [],contestData: nil,contestHeaderData: nil),
                     isActive: $viewModel.navigateToMyTeam
                 ) {
                     EmptyView()

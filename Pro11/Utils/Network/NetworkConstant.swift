@@ -89,11 +89,14 @@ final class NetworkConstant {
             }
             
         }
+        
+//        api/pro11/user-contests/join?userId=161&contestId=18&userTeamId=7,8
         enum API {
             case createUserTeam
             case wallet(userId: String)
             case createOrder(userId: String)
             case userTeamByMatch(matchId: String, userId: String)
+            case joinContestWith(contestID:String, userTeamId:String)
             
             var path: String {
                 switch self {
@@ -101,6 +104,8 @@ final class NetworkConstant {
                 case .wallet(let id): return "/wallet/\(id)"
                 case .createOrder(let id): return "/wallet/\(id)/wallet"
                 case .userTeamByMatch(let matchID, let userid): return "/user-teams/\(matchID)/match?userId=\(userid)"
+                case .joinContestWith(contestID: let contestId,let userTeamId):
+                    return "/pro11/user-contests/join?userId=\(UserStorage.userId)&contestId=\(contestId)&userTeamId=\(userTeamId)"
                 }
             }
         }
